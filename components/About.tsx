@@ -3,10 +3,10 @@ import { Folder, Mail } from "lucide-react";
 
 export default function About() {
   const stats = [
-    { value: "5th", label: "YEAR SOFTWARE ENGINEERING" },
-    { value: "10+", label: "PROJECTS BUILT" },
+    { value: "3+", label: "YEARS OF CODING" },
+    { value: "10+", label: "PROJECTS DELIVERED" },
     { value: "5+", label: "INTERNSHIPS & PROGRAMS" },
-    { value: "2×", label: "HACKATHON WINNER" },
+    { value: "∞", label: "LINES OF CODE WRITTEN" },
   ];
 
   return (
@@ -18,8 +18,8 @@ export default function About() {
         <div className="relative shrink-0">
           <div className="relative h-72 w-72 overflow-hidden rounded-3xl border border-border bg-card shadow-sm sm:h-80 sm:w-80">
             <Image
-              src="/pink-shifon.jpg"
-              alt="Nezira"
+              src="/fete.png"
+              alt="Fetehadin Negash"
               fill
               className="object-cover"
             />
@@ -36,29 +36,21 @@ export default function About() {
           </span>
 
           <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            I build with{" "}
-            <span className="font-serif italic text-primary">purpose</span>.
+            The Journey from{" "}
+            <span className="font-serif italic text-primary">Logic</span> to Impact
           </h2>
 
           <p className="text-base leading-relaxed text-foreground/70">
-            I&apos;m Nezira, a Software Engineering student and product builder
-            focused on turning complex ideas into reliable digital products.
-            My work spans full-stack development, backend systems, databases,
-            and enterprise applications.
+            Transitioning from civil engineering to software development gave me a unique blueprint for building software: I treat code the same way I treat physical infrastructure, designing for structural integrity, load management, and long-term scalability.
           </p>
 
           <p className="text-base leading-relaxed text-foreground/70">
-            My recent experience with Python, Odoo, PostgreSQL, and
-            production-oriented backend systems has pushed me deeper into
-            software architecture, data integrity, business logic, and
-            scalable applications. I still enjoy building across the stack,
-            but I&apos;m increasingly focused on the engineering behind systems
-            that need to work reliably.
+            Today, I focus on transforming complex challenges into efficient backend logic, smart automation, and high-performing digital solutions that drive real-world impact.
           </p>
 
           <div className="mt-4 flex flex-wrap items-center gap-4">
             <a
-              href="https://docs.google.com/document/d/1z5Ex9RoHyJFe9RqCysidAT4FiSQjFHxEL_VcPHyEP7A/edit?usp=sharing"
+              href="https://drive.google.com/file/d/1HBvlOeg1si_HJ9zASuvfW6hPb1CppOVx/view?usp=sharing"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex h-12 items-center justify-center gap-3 rounded-full border border-border bg-card px-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-card/80 hover:shadow-md"
@@ -68,7 +60,7 @@ export default function About() {
                 fill="currentColor"
               />
               <span className="text-sm font-semibold text-foreground">
-                View Resume
+                Download CV
               </span>
             </a>
 
