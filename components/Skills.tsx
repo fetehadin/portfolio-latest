@@ -6,33 +6,33 @@ export default function Skills() {
         "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg",
     },
     {
-      name: "JavaScript",
-      iconUrl:
-        "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg",
-    },
-    {
-      name: "TypeScript",
-      iconUrl:
-        "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg",
-    },
-    {
-      name: "Node.js",
-      iconUrl:
-        "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg",
-    },
-    {
-      name: "Express.js",
-      iconUrl:
-        "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg",
-    },
-    {
       name: "Django",
       iconUrl:
         "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/django/django-plain.svg",
     },
+    {
+      name: "PostgreSQL",
+      iconUrl:
+        "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg",
+    },
+    {
+      name: "C++",
+      iconUrl:
+        "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg",
+    },
+    {
+      name: "Go",
+      iconUrl:
+        "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/go/go-original.svg",
+    },
   ];
 
   const row2 = [
+    {
+      name: "JavaScript",
+      iconUrl:
+        "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg",
+    },
     {
       name: "Next.js",
       iconUrl:
@@ -44,52 +44,27 @@ export default function Skills() {
         "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg",
     },
     {
-      name: "Tailwind CSS",
+      name: "HTML5",
       iconUrl:
-        "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg",
+        "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg",
     },
     {
-      name: "Shadcn/ui",
+      name: "CSS3",
       iconUrl:
-        "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/shadcnui.svg",
+        "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg",
     },
     {
-      name: "Bootstrap",
+      name: "Bootstrap 5",
       iconUrl:
         "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bootstrap/bootstrap-original.svg",
     },
-    {
-    name: "Odoo",
-    iconUrl:
-      "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/odoo.svg",
-  },
   ];
 
   const row3 = [
     {
-      name: "PostgreSQL",
+      name: "Ubuntu",
       iconUrl:
-        "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg",
-    },
-    {
-      name: "MySQL",
-      iconUrl:
-        "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg",
-    },
-    {
-      name: "Supabase",
-      iconUrl:
-        "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/supabase/supabase-original.svg",
-    },
-    {
-      name: "Prisma",
-      iconUrl:
-        "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/prisma/prisma-original.svg",
-    },
-    {
-      name: "Docker",
-      iconUrl:
-        "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg",
+        "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ubuntu/ubuntu-plain.svg",
     },
     {
       name: "Git",
@@ -110,26 +85,6 @@ export default function Skills() {
       name: "Vercel",
       iconUrl:
         "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vercel/vercel-original.svg",
-    },
-    {
-      name: "Omarchy",
-      iconUrl:
-        "https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@latest/icons/omarchy.svg",
-    },
-    {
-      name: "AWS",
-      iconUrl:
-        "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg",
-    },
-    {
-      name: "Azure",
-      iconUrl:
-        "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/azure/azure-original.svg",
-    },
-    {
-      name: "Google Cloud",
-      iconUrl:
-        "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-original.svg",
     },
   ];
 
