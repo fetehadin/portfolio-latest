@@ -18,7 +18,7 @@ export default function Navbar() {
         href="#"
         className="text-xl font-extrabold tracking-tight text-foreground"
       >
-        Fetehadin<span className="text-primary">.</span>
+        Fetehadin N<span className="text-primary">.</span>
       </a>
 
       <div className="hidden items-center gap-8 text-sm font-medium text-foreground/70 md:flex">

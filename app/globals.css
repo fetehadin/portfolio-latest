@@ -103,13 +103,13 @@
 .animate-marquee {
   display: flex;
   width: max-content;
-  animation: marquee 20s linear infinite;
+  animation: marquee 35s linear infinite; /* Increased from 20s to 35s */
 }
 
 .animate-marquee-reverse {
   display: flex;
   width: max-content;
-  animation: marquee-reverse 20s linear infinite;
+  animation: marquee-reverse 35s linear infinite; /* Increased from 20s to 35s */
 }
 
 /* Pause animation on hover */

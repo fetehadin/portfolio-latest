@@ -115,7 +115,7 @@ export default function Contact() {
         <div className="flex flex-col gap-6">
           <div className="flex w-full flex-col items-center justify-between gap-6 lg:flex-row">
             <h3 className="w-full shrink-0 text-center text-2xl font-extrabold tracking-tight text-foreground sm:text-3xl lg:w-auto lg:text-left cursor-target">
-              Fetehadin<span className="text-primary">.</span>
+              Fetehadin N<span className="text-primary">.</span>
             </h3>
 
             <div className="flex flex-1 flex-wrap justify-center gap-6 text-[11px] font-bold uppercase tracking-[0.15em] text-foreground/50">

@@ -1,3 +1,5 @@
+import { GraduationCap } from "lucide-react";
+
 export default function Education() {
   const education = [
     {
@@ -36,64 +38,28 @@ export default function Education() {
     },
   ];
 
-  const certificates = [
-    {
-      title: "ALX Backend Software Engineering",
-      date: "August 2024 – January 2025",
-      description:
-        "Successfully completed ALX's intensive backend software engineering program, building production-ready applications and mastering industry-standard software engineering practices.",
-    },
-    {
-      title: "ALX Career Essentials",
-      date: "2024",
-      description:
-        "Completed career readiness training focused on professional communication, leadership, collaboration, networking, personal branding, and interview preparation.",
-    },
-    {
-      title: "INSA Summer Tech Camp",
-      date: "July 2025 – October 2025",
-      description:
-        "Completed the Information Network Security Administration (INSA) Summer Tech Camp, gaining hands-on experience in full-stack software development through an intensive industry-focused building challenge.",
-    },
-    {
-      title: "Nexus Bootcamp – Data Structures & Algorithms",
-      date: "June 2025 – September 2025",
-      description:
-        "Strengthened algorithmic thinking and problem-solving through intensive training in data structures, algorithms, complexity analysis, and coding interview patterns.",
-    },
-    {
-      title: "Nexus Bootcamp – Frontend Development",
-      date: "September 2025 – October 2025",
-      description:
-        "Built responsive web applications using modern frontend technologies while applying best practices for UI development and user experience.",
-    },
-    {
-      title: "Udacity – Fundamentals of Programming",
-      date: "January 2025",
-      description:
-        "Completed foundational training in programming concepts, problem-solving, and software development using Python and modern development practices.",
-    },
-    {
-      title: "ALX Appreciation Letter",
-      date: "2025",
-      description:
-        "Received an appreciation letter from ALX Africa in recognition of mentoring fellow learners and supporting frontend development activities within the community.",
-    },
-  ];
-
   return (
     <section
       id="education"
       className="py-20 max-w-4xl mx-auto w-full px-4 sm:px-6 lg:px-8 bg-background"
     >
-      {/* Education Timeline */}
-      <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground mb-8">
+      <div className="mb-8 flex items-center gap-4">
+        <span className="h-[1px] w-12 bg-primary/40"></span>
+        <div className="flex items-center gap-2">
+          <GraduationCap className="h-5 w-5 text-primary" />
+          <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-primary">
+            Education
+          </span>
+        </div>
+      </div>
+
+      <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground mb-8 cursor-target">
         Education
       </h2>
 
       <div className="ml-16 md:ml-20 h-10 border-l border-dashed border-border" />
 
-      <div className="relative ml-16 md:ml-20 border-l border-border mb-20">
+      <div className="relative ml-16 md:ml-20 border-l border-border">
         <div className="space-y-14">
           {education.map((edu, index) => (
             <article key={index} className="relative">
@@ -121,43 +87,12 @@ export default function Education() {
                     {edu.badges.map((badge, idx) => (
                       <span
                         key={idx}
-                        className="rounded-full border border-border bg-card px-3 py-1.5 text-[11px] font-semibold tracking-wide text-foreground/65 transition-colors duration-200 hover:border-primary/30 hover:text-primary cursor-target"
+                        className="cursor-target rounded-full border border-border bg-card px-3 py-1.5 text-[11px] font-semibold tracking-wide text-foreground/65 transition-colors duration-200 hover:border-primary/30 hover:text-primary"
                       >
                         {badge}
                       </span>
                     ))}
                   </div>
-                )}
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
-
-      {/* Certificates & Awards Timeline */}
-      <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground mb-8">
-        Certificates & Awards
-      </h2>
-
-      <div className="ml-16 md:ml-20 h-10 border-l border-dashed border-border" />
-
-      <div className="relative ml-16 md:ml-20 border-l border-border">
-        <div className="space-y-14">
-          {certificates.map((cert, index) => (
-            <article key={index} className="relative">
-              <span className="absolute left-0 top-0 z-10 -translate-x-1/2 -translate-y-1/2 inline-flex items-center whitespace-nowrap rounded-full border border-border bg-background px-4 py-1.5 text-sm font-bold text-foreground">
-                {cert.date}
-              </span>
-
-              <div className="pt-6 pl-8">
-                <h3 className="text-lg sm:text-xl font-bold text-foreground cursor-target">
-                  {cert.title}
-                </h3>
-
-                {cert.description && (
-                  <p className="mt-3 max-w-2xl text-[15px] leading-7 text-foreground/70">
-                    {cert.description}
-                  </p>
                 )}
               </div>
             </article>
