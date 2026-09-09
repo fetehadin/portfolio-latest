@@ -48,28 +48,29 @@ export default function About() {
             Today, I focus on transforming complex challenges into efficient backend logic, smart automation, and high-performing digital solutions that drive real-world impact.
           </p>
 
-          <div className="mt-4 flex flex-wrap items-center gap-4">
+          {/* Updated Button Container for Mobile Side-by-Side */}
+          <div className="mt-4 flex w-full flex-row items-center gap-3 sm:w-auto sm:gap-4">
             <a
               href="https://drive.google.com/file/d/1HBvlOeg1si_HJ9zASuvfW6hPb1CppOVx/view?usp=sharing"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-12 items-center justify-center gap-3 rounded-full border border-border bg-card px-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-card/80 hover:shadow-md"
+              className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-full border border-border bg-card px-2 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-card/80 hover:shadow-md sm:flex-none sm:gap-3 sm:px-6"
             >
               <Folder
-                className="h-5 w-5 text-primary"
+                className="h-4 w-4 text-primary sm:h-5 sm:w-5"
                 fill="currentColor"
               />
-              <span className="text-sm font-semibold text-foreground">
+              <span className="whitespace-nowrap text-[13px] font-semibold text-foreground sm:text-sm">
                 Download CV
               </span>
             </a>
 
             <a
               href="#contact"
-              className="inline-flex h-12 min-w-[155px] items-center justify-center gap-2.5 rounded-full border border-border bg-card px-7 text-sm font-medium text-foreground shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-card/80 hover:shadow-md"
+              className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-full border border-border bg-card px-2 text-[13px] font-medium text-foreground shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-card/80 hover:shadow-md sm:min-w-[155px] sm:flex-none sm:gap-2.5 sm:px-7 sm:text-sm"
             >
               <Mail className="h-4 w-4 shrink-0 text-foreground/70" />
-              <span>Get in Touch</span>
+              <span className="whitespace-nowrap">Get in Touch</span>
             </a>
           </div>
         </div>

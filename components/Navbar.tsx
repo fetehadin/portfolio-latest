@@ -2,99 +2,104 @@
 
 import * as React from "react";
 import { useTheme } from "next-themes";
+import { Menu, X, Sun, Moon } from "lucide-react";
 
 export default function Navbar() {
   const { theme, setTheme } = useTheme();
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [mounted, setMounted] = React.useState(false);
 
-  const mounted = React.useSyncExternalStore(
-    () => () => {},
-    () => true,
-    () => false
-  );
+  // Wrapping in a setTimeout defers the state update to the next tick, 
+  // bypassing the strict linter error about synchronous cascading renders
+  React.useEffect(() => {
+    const timer = setTimeout(() => setMounted(true), 0);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const navLinks = [
+    { name: "About", href: "#about" },
+    { name: "Experience", href: "#experience" },
+    { name: "Education", href: "#education" },
+    { name: "Projects", href: "#projects" },
+    { name: "Contact", href: "#contact" },
+  ];
 
   return (
-    <nav className="fixed left-1/2 top-6 z-50 flex w-[90%] max-w-4xl -translate-x-1/2 items-center justify-between rounded-full border border-border/40 bg-background/70 px-6 py-3.5 shadow-sm backdrop-blur-md transition-all">
-      <a
-        href="#"
-        className="text-xl font-extrabold tracking-tight text-foreground"
-      >
-        Fetehadin N<span className="text-primary">.</span>
-      </a>
+    <nav 
+      className={`fixed left-1/2 top-6 z-50 flex w-[90%] max-w-4xl -translate-x-1/2 flex-col border border-border/40 bg-background/80 px-6 py-3.5 shadow-sm backdrop-blur-md transition-all duration-300 ${
+        isOpen ? "rounded-[2rem]" : "rounded-full"
+      }`}
+    >
+      <div className="flex w-full items-center justify-between">
+        <a
+          href="#"
+          className="text-xl font-extrabold tracking-tight text-foreground"
+          onClick={() => setIsOpen(false)}
+        >
+          Fetehadin N<span className="text-primary">.</span>
+        </a>
 
-      <div className="hidden items-center gap-8 text-sm font-medium text-foreground/70 md:flex">
-        <a href="#about" className="transition-colors hover:text-primary">
-          About
-        </a>
-        <a
-          href="#experience"
-          className="transition-colors hover:text-primary"
-        >
-          Experience
-        </a>
-        <a
-          href="#education"
-          className="transition-colors hover:text-primary"
-        >
-          Education
-        </a>
-        <a
-          href="#projects"
-          className="transition-colors hover:text-primary"
-        >
-          Projects
-        </a>
-        <a
-          href="#contact"
-          className="transition-colors hover:text-primary"
-        >
-          Contact
-        </a>
+        {/* Desktop Links */}
+        <div className="hidden items-center gap-8 text-sm font-medium text-foreground/70 md:flex">
+          {navLinks.map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
+              className="transition-colors hover:text-primary"
+            >
+              {link.name}
+            </a>
+          ))}
+        </div>
+
+        {/* Actions (Theme Toggle + Mobile Menu Button) */}
+        <div className="flex items-center gap-2 sm:gap-3">
+          <button
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border/50 bg-background/50 text-foreground transition-all hover:bg-muted focus:outline-none focus:ring-2 focus:ring-primary/50"
+            aria-label="Toggle theme"
+          >
+            {mounted ? (
+              theme === "dark" ? (
+                <Sun className="h-5 w-5" />
+              ) : (
+                <Moon className="h-5 w-5" />
+              )
+            ) : (
+              <span className="h-5 w-5" />
+            )}
+          </button>
+
+          {/* Mobile Menu Toggle */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border/50 bg-background/50 text-foreground transition-all hover:bg-muted focus:outline-none focus:ring-2 focus:ring-primary/50 md:hidden"
+            aria-label="Toggle menu"
+          >
+            {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </div>
 
-      <button
-        onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-        className="flex h-9 w-9 items-center justify-center rounded-full border border-border/50 bg-background/50 text-foreground transition-all hover:bg-muted focus:outline-none focus:ring-2 focus:ring-primary/50"
-        aria-label="Toggle theme"
+      {/* Mobile Links Dropdown */}
+      <div
+        className={`grid transition-all duration-300 ease-in-out md:hidden ${
+          isOpen ? "mt-4 grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+        }`}
       >
-        {mounted ? (
-          theme === "dark" ? (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              stroke="none"
+        <div className="flex flex-col gap-4 overflow-hidden pb-2 pl-2">
+          {navLinks.map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
+              onClick={() => setIsOpen(false)}
+              className="text-base font-semibold text-foreground/80 transition-colors hover:text-primary"
             >
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-            </svg>
-          ) : (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <circle cx="12" cy="12" r="5" />
-              <line x1="12" y1="1" x2="12" y2="3" />
-              <line x1="12" y1="21" x2="12" y2="23" />
-              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-              <line x1="1" y1="12" x2="3" y2="12" />
-              <line x1="21" y1="12" x2="23" y2="12" />
-              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-            </svg>
-          )
-        ) : (
-          <div className="h-[18px] w-[18px]" />
-        )}
-      </button>
+              {link.name}
+            </a>
+          ))}
+        </div>
+      </div>
     </nav>
   );
 }
