@@ -66,6 +66,25 @@ export default function Projects() {
     },
   ];
 
+  const extraProjects = [
+    {
+      name: "EduConnect Backend",
+      link: "https://github.com/fetehadin",
+    },
+    {
+      name: "Task Management API",
+      link: "https://github.com/fetehadin",
+    },
+    {
+      name: "Portfolio V1",
+      link: "https://github.com/fetehadin",
+    },
+    {
+      name: "E-Commerce Microservice",
+      link: "https://github.com/fetehadin",
+    },
+  ];
+
   return (
     <section
       id="projects"
@@ -171,6 +190,54 @@ export default function Projects() {
             </article>
           ))}
         </div>
+
+        <article className="relative mt-14">
+          <span className="absolute left-0 top-8 z-10 h-3.5 w-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-[3px] border-primary bg-background" />
+
+          <div className="pl-8 pt-6">
+            <div className="mb-2">
+              <h3 className="text-2xl font-bold tracking-tight text-primary cursor-target">
+                Extra Projects
+              </h3>
+            </div>
+
+            <div className="relative">
+              <div className="absolute bottom-6 left-6 top-0 z-0 w-px border-l border-dashed border-border" />
+
+              <div className="h-6" />
+
+              <div className="relative z-10 rounded-xl border border-border bg-background p-5 shadow-none md:p-6">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
+                  {extraProjects.map((project, index) => (
+                    <a
+                      key={index}
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="cursor-target flex items-center justify-center rounded-md border border-border bg-background px-3 py-4 text-center text-[14px] font-medium text-foreground transition-all duration-300 hover:-translate-y-[2px] hover:border-primary hover:text-primary"
+                    >
+                      {project.name}
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              <div className="h-6" />
+
+              <div className="relative z-10 pl-2">
+                <a
+                  href="https://github.com/fetehadin"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cursor-target inline-flex items-center gap-2 text-[15px] font-bold text-foreground transition-colors hover:text-primary"
+                >
+                  More on Github
+                  <ExternalLink className="h-4 w-4" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
   );
