@@ -110,15 +110,18 @@ export default function Projects() {
         </div>
       </div>
 
-      <div className="ml-20 h-10 border-l border-dashed border-border" />
+      {/* Adjusted margins for mobile left spacing */}
+      <div className="ml-4 sm:ml-12 md:ml-20 h-10 border-l border-dashed border-border" />
 
-      <div className="relative ml-20 border-l border-border">
+      <div className="relative ml-4 sm:ml-12 md:ml-20 border-l border-border">
         <div className="space-y-12">
           {projects.map((project, index) => (
             <article key={index} className="relative z-10">
+              {/* Keep the translate-x-1/2 here because it's just a tiny dot, so it centers perfectly on the line */}
               <span className="absolute left-0 top-8 z-10 h-3.5 w-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-[3px] border-primary bg-background" />
 
-              <div className="pl-8 pt-6">
+              {/* Adjusted padding left for mobile view */}
+              <div className="pl-6 sm:pl-8 pt-6">
                 <div className="group relative flex flex-col items-stretch gap-0 md:flex-row">
                   <div className="relative z-10 flex min-h-[180px] w-full shrink-0 items-center justify-center overflow-hidden rounded-xl border border-border bg-muted/50 p-2 shadow-sm transition-all duration-300 group-hover:border-primary/30 md:w-[350px]">
                     <Image
@@ -134,7 +137,7 @@ export default function Projects() {
                   </div>
 
                   <div className="relative z-10 mt-4 flex w-full flex-1 flex-col justify-center rounded-xl border border-border bg-background/80 backdrop-blur-sm p-4 shadow-sm transition-all duration-300 group-hover:border-primary/30 md:mt-0 md:p-5">
-                    <div className="absolute -top-[16px] right-6 flex items-center gap-3.5 rounded-full border border-border bg-background px-4 py-2 opacity-0 shadow-sm transition-all duration-300 group-hover:border-primary/50 group-hover:opacity-100">
+                    <div className="absolute -top-[16px] right-6 hidden items-center gap-3.5 rounded-full border border-border bg-background px-4 py-2 opacity-0 shadow-sm transition-all duration-300 group-hover:border-primary/50 group-hover:opacity-100 sm:flex">
                       {project.stack.map((tech, techIndex) => {
                         const Icon = tech.icon;
 
@@ -191,7 +194,8 @@ export default function Projects() {
         <article className="relative mt-14 z-10">
           <span className="absolute left-0 top-8 z-10 h-3.5 w-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-[3px] border-primary bg-background" />
 
-          <div className="pl-8 pt-6">
+          {/* Adjusted padding left for mobile view here as well */}
+          <div className="pl-6 sm:pl-8 pt-6">
             <div className="mb-2">
               <h3 className="text-2xl font-bold tracking-tight text-primary cursor-target">
                 Extra Projects

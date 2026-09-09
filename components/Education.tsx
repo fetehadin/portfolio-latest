@@ -41,13 +41,8 @@ export default function Education() {
   return (
     <section
       id="education"
-      // REMOVED 'bg-background' from this line so it blends with the global molten background
       className="relative py-20 max-w-4xl mx-auto w-full px-4 sm:px-6 lg:px-8"
     >
-      {/* Optional: Add a subtle fade behind just the content for readability if needed, 
-          uncomment the div below if you want a soft glowing backdrop */}
-      {/* <div className="absolute inset-0 bg-background/30 blur-3xl -z-10 rounded-[100%]" /> */}
-
       <div className="mb-8 flex items-center gap-4">
         <span className="h-[1px] w-12 bg-primary/40"></span>
         <div className="flex items-center gap-2">
@@ -62,17 +57,20 @@ export default function Education() {
         Education
       </h2>
 
-      <div className="ml-16 md:ml-20 h-10 border-l border-dashed border-border" />
+      {/* Adjusted margins: 16px on mobile, growing to 80px on desktop */}
+      <div className="ml-4 sm:ml-12 md:ml-20 h-10 border-l border-dashed border-border" />
 
-      <div className="relative ml-16 md:ml-20 border-l border-border">
+      <div className="relative ml-4 sm:ml-12 md:ml-20 border-l border-border">
         <div className="space-y-14">
           {education.map((edu, index) => (
             <article key={index} className="relative z-10">
-              <span className="absolute left-0 top-0 z-10 -translate-x-1/2 -translate-y-1/2 inline-flex items-center whitespace-nowrap rounded-full border border-border bg-background px-4 py-1.5 text-sm font-bold text-foreground shadow-sm">
+              {/* Adjusted translate-x on mobile so the badge doesn't push off-screen */}
+              <span className="absolute left-0 top-0 z-10 -translate-x-2 sm:-translate-x-1/2 -translate-y-1/2 inline-flex items-center whitespace-nowrap rounded-full border border-border bg-background px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-bold text-foreground shadow-sm">
                 {edu.date}
               </span>
 
-              <div className="pt-6 pl-8">
+              {/* Added a bit more top padding (pt-8) on mobile to clear the date badge */}
+              <div className="pt-8 sm:pt-6 pl-6 sm:pl-8">
                 <h3 className="text-lg sm:text-xl font-bold text-foreground cursor-target">
                   {edu.school}
                 </h3>
@@ -82,7 +80,7 @@ export default function Education() {
                 </p>
 
                 {edu.description && (
-                  <p className="mt-3 max-w-2xl text-[15px] leading-7 text-foreground/70">
+                  <p className="mt-3 max-w-2xl text-[14px] sm:text-[15px] leading-7 text-foreground/70">
                     {edu.description}
                   </p>
                 )}
