@@ -7,7 +7,6 @@ interface CursorGridProps {
   cellSize?: number;
   radius?: number;
   lineWidth?: number;
-  [key: string]: any;
 }
 
 export default function CursorGrid({

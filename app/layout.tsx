@@ -38,21 +38,6 @@ export default function RootLayout({
             color1="#008080" // Teal
             color2="#008000" // Green
             color3="#ADD8E6" // Light Blue
-            speed={0.35}
-            scale={4}
-            detail={3}
-            glow={1.6}
-            coreSize={0.1}
-            swirl={1}
-            fold={-0.2}
-            blackPoint={0.05}
-            brightness={1.3}
-            colorMode="molten"
-            grain
-            grainIntensity={0.05}
-            mouseInteraction
-            mouseStrength={0.3}
-            opacity={1}
           />
         </div>
 
@@ -62,16 +47,7 @@ export default function RootLayout({
             cellSize={70}
             color="#008080" // Matched to Teal
             radius={140}
-            falloff="smooth"
-            holdTime={400}
-            fadeDuration={800}
             lineWidth={1.2}
-            maxOpacity={1}
-            fillOpacity={0}
-            gridOpacity={0}
-            cellRadius={0}
-            clickPulse
-            pulseSpeed={600}
           />
         </div>
 
