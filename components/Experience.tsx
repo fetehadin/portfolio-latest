@@ -3,82 +3,53 @@ import { MapPin } from "lucide-react";
 export default function Experience() {
   const experiences = [
     {
-      company: "Hira Muslim Students Association",
-      role: "Lead Developer & Technical Team Leader",
-      date: "2022 – Present",
+      company: "Ethiopian Artificial Intelligence Institute",
+      role: "Data Encoder",
+      date: "Aug 2025 – Dec 2025",
       location: "Addis Ababa, Ethiopia",
-      type: "Leadership · Technology",
+      type: "On-site · Full-time",
       description:
-        "Lead the technical team in developing software products while organizing technology exhibitions, workshops, and training programs. Coordinate developers, translate organizational needs into digital solutions, and contribute to building a stronger technical community.",
+        "Participated in a national AI project, where meticulous attention to detail and rigorous data validation were essential to building reliable datasets for machine learning models.",
       skills: [
-        "Software Development",
-        "Team Leadership",
-        "Product Development",
-        "Technical Training",
+        "Data Quality",
+        "Machine Learning",
+        "Artificial Intelligence",
+        "Analytical Thinking",
       ],
     },
     {
-      company: "Innobiz K",
-      role: "Team Lead",
-      date: "2025 – Present",
+      company: "INSA | Information Network Security Administration",
+      role: "Team Lead & Full-Stack Developer",
+      date: "Jul 2025 – Oct 2025",
       location: "Addis Ababa, Ethiopia",
-      type: "Startup · Innovation",
+      type: "On-site · Summer Tech Camp",
       description:
-        "Lead and coordinate a team across hackathon and startup initiatives, managing collaboration, product development, and execution from idea to presentation.",
-      skills: [
-        "Team Leadership",
-        "Product Strategy",
-        "Hackathons",
-        "Startup Development",
-      ],
-    },
-    {
-      company: "Golden Age Technology",
-      role: "Frontend Developer & Project Manager",
-      date: "2024 – 2025",
-      location: "Jemo, Addis Ababa",
-      type: "Remote · Professional",
-      description:
-        "Worked across frontend development and project management, coordinating multiple teams and projects while contributing to the development of web-based products and maintaining collaboration across technical teams.",
-      skills: [
-        "Next.js",
-        "React",
-        "TypeScript",
-        "Project Management",
-        "Team Coordination",
-      ],
-    },
-    {
-      company: "Async Tech Service PLC",
-      role: "Full-Stack Developer",
-      date: "Summer 2025",
-      location: "Lideta, Addis Ababa",
-      type: "Hybrid · Internship",
-      description:
-        "Worked on enterprise application development using Python and Odoo, with hands-on experience in PostgreSQL, relational data modeling, business logic, ORM constraints, access control, API security, and Docker-based development. Also contributed to frontend integration with Next.js.",
+        "Led a multidisciplinary team during the 4-month INSA Summer Tech Camp building challenge to develop EduConnect, a full-stack educational platform. Designed the backend architecture while collaborating on frontend development to deliver a scalable solution.",
       skills: [
         "Python",
-        "Odoo",
+        "Django",
+        "JavaScript",
         "PostgreSQL",
-        "Next.js",
-        "Docker",
-        "Backend Engineering",
+        "REST APIs",
+        "Team Leadership",
       ],
     },
     {
-      company: "ALX Ethiopia",
-      role: "Frontend Developer Trainee",
-      date: "2023 – 2024",
+      company: "ALX Africa",
+      role: "Backend Developer Trainee",
+      date: "Aug 2024 – Jan 2025",
       location: "Remote",
-      type: "Remote · Training Program",
+      type: "Remote · Intensive Program",
       description:
-        "Completed project-based frontend development training, building practical web applications while strengthening core development, problem-solving, collaboration, and software engineering skills.",
+        "Completed ALX's intensive, project-based backend engineering program, gaining hands-on experience building production-ready applications while solving real-world software engineering challenges. Collaborated with peers, received mentorship from experienced engineers, and strengthened technical, problem-solving, and professional skills in an industry-focused environment.",
       skills: [
-        "JavaScript",
-        "React",
-        "HTML",
-        "CSS",
-        "Frontend Development",
+        "Python",
+        "Django",
+        "Node.js",
+        "Express.js",
+        "REST APIs",
+        "SQL",
+        "MongoDB",
         "Git",
       ],
     },
@@ -89,13 +60,13 @@ export default function Experience() {
       id="experience"
       className="py-20 max-w-4xl mx-auto w-full px-4 sm:px-6 lg:px-8 bg-background"
     >
-      <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground mb-8">
+      <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground mb-8 cursor-target">
         Experience
       </h2>
 
-      <div className="ml-20 h-10 border-l border-dashed border-border" />
+      <div className="ml-16 md:ml-20 h-10 border-l border-dashed border-border" />
 
-      <div className="relative ml-20 border-l border-border">
+      <div className="relative ml-16 md:ml-20 border-l border-border">
         <div className="space-y-14">
           {experiences.map((exp, index) => (
             <article key={index} className="relative">
@@ -104,7 +75,7 @@ export default function Experience() {
               </span>
 
               <div className="pt-6 pl-8">
-                <h3 className="text-lg sm:text-xl font-bold text-foreground">
+                <h3 className="text-lg sm:text-xl font-bold text-foreground cursor-target">
                   {exp.company}
                 </h3>
 
@@ -133,7 +104,7 @@ export default function Experience() {
                   {exp.skills.map((skill, idx) => (
                     <span
                       key={idx}
-                      className="rounded-full border border-border bg-card px-3 py-1.5 text-[11px] font-semibold tracking-wide text-foreground/65 transition-colors duration-200 hover:border-primary/30 hover:text-primary"
+                      className="cursor-target rounded-full border border-border bg-card px-3 py-1.5 text-[11px] font-semibold tracking-wide text-foreground/65 transition-colors duration-200 hover:border-primary/30 hover:text-primary"
                     >
                       {skill}
                     </span>
