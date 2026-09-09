@@ -58,7 +58,8 @@ export default function Experience() {
   return (
     <section
       id="experience"
-      className="py-20 max-w-4xl mx-auto w-full px-4 sm:px-6 lg:px-8 bg-background"
+      // Removed 'bg-background' to allow the molten layer to show through naturally
+      className="relative py-20 max-w-4xl mx-auto w-full px-4 sm:px-6 lg:px-8"
     >
       <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground mb-8 cursor-target">
         Experience
@@ -69,8 +70,8 @@ export default function Experience() {
       <div className="relative ml-16 md:ml-20 border-l border-border">
         <div className="space-y-14">
           {experiences.map((exp, index) => (
-            <article key={index} className="relative">
-              <span className="absolute left-0 top-0 z-10 -translate-x-1/2 -translate-y-1/2 inline-flex items-center whitespace-nowrap rounded-full border border-border bg-background px-4 py-1.5 text-sm font-bold text-foreground">
+            <article key={index} className="relative z-10">
+              <span className="absolute left-0 top-0 z-10 -translate-x-1/2 -translate-y-1/2 inline-flex items-center whitespace-nowrap rounded-full border border-border bg-background px-4 py-1.5 text-sm font-bold text-foreground shadow-sm">
                 {exp.date}
               </span>
 
@@ -104,7 +105,7 @@ export default function Experience() {
                   {exp.skills.map((skill, idx) => (
                     <span
                       key={idx}
-                      className="cursor-target rounded-full border border-border bg-card px-3 py-1.5 text-[11px] font-semibold tracking-wide text-foreground/65 transition-colors duration-200 hover:border-primary/30 hover:text-primary"
+                      className="cursor-target rounded-full border border-border bg-card/80 backdrop-blur-sm px-3 py-1.5 text-[11px] font-semibold tracking-wide text-foreground/65 transition-colors duration-200 hover:border-primary/30 hover:text-primary"
                     >
                       {skill}
                     </span>

@@ -1,14 +1,11 @@
 import Image from "next/image";
-import { ExternalLink, Code2, Layers } from "lucide-react";
+import { ExternalLink, Layers } from "lucide-react";
 import {
   SiPython,
-  SiOdoo,
   SiPostgresql,
   SiNextdotjs,
   SiTailwindcss,
   SiTypescript,
-  SiSupabase,
-  SiShadcnui,
   SiDjango,
   SiReact,
   SiRedux,
@@ -68,27 +65,27 @@ export default function Projects() {
 
   const extraProjects = [
     {
-      name: "EduConnect Backend",
-      link: "https://github.com/fetehadin",
+      name: "recipe-sharing-platform",
+      link: "https://github.com/Jennah198/recipe-sharing-platform",
     },
     {
-      name: "Task Management API",
-      link: "https://github.com/fetehadin",
+      name: "weather-dashboard",
+      link: "https://github.com/Jennah198/weather-dashboard",
     },
     {
-      name: "Portfolio V1",
-      link: "https://github.com/fetehadin",
+      name: "portfolio",
+      link: "https://github.com/Jennah198/portfolio",
     },
     {
-      name: "E-Commerce Microservice",
-      link: "https://github.com/fetehadin",
+      name: "motivate-me-bot",
+      link: "https://github.com/Jennah198/motivate-me-bot",
     },
   ];
 
   return (
     <section
       id="projects"
-      className="mx-auto w-full max-w-5xl bg-background px-4 py-20 sm:px-6 lg:px-8"
+      className="relative mx-auto w-full max-w-5xl px-4 py-20 sm:px-6 lg:px-8"
     >
       <div className="mb-16 flex flex-col items-start text-left">
         <div className="mb-4 flex items-center gap-4">
@@ -118,7 +115,7 @@ export default function Projects() {
       <div className="relative ml-20 border-l border-border">
         <div className="space-y-12">
           {projects.map((project, index) => (
-            <article key={index} className="relative">
+            <article key={index} className="relative z-10">
               <span className="absolute left-0 top-8 z-10 h-3.5 w-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-[3px] border-primary bg-background" />
 
               <div className="pl-8 pt-6">
@@ -136,7 +133,7 @@ export default function Projects() {
                     <div className="h-px w-8 bg-border transition-colors duration-300 group-hover:bg-primary/40" />
                   </div>
 
-                  <div className="relative z-10 mt-4 flex w-full flex-1 flex-col justify-center rounded-xl border border-border bg-background p-4 shadow-sm transition-all duration-300 group-hover:border-primary/30 md:mt-0 md:p-5">
+                  <div className="relative z-10 mt-4 flex w-full flex-1 flex-col justify-center rounded-xl border border-border bg-background/80 backdrop-blur-sm p-4 shadow-sm transition-all duration-300 group-hover:border-primary/30 md:mt-0 md:p-5">
                     <div className="absolute -top-[16px] right-6 flex items-center gap-3.5 rounded-full border border-border bg-background px-4 py-2 opacity-0 shadow-sm transition-all duration-300 group-hover:border-primary/50 group-hover:opacity-100">
                       {project.stack.map((tech, techIndex) => {
                         const Icon = tech.icon;
@@ -191,7 +188,7 @@ export default function Projects() {
           ))}
         </div>
 
-        <article className="relative mt-14">
+        <article className="relative mt-14 z-10">
           <span className="absolute left-0 top-8 z-10 h-3.5 w-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-[3px] border-primary bg-background" />
 
           <div className="pl-8 pt-6">
@@ -206,7 +203,7 @@ export default function Projects() {
 
               <div className="h-6" />
 
-              <div className="relative z-10 rounded-xl border border-border bg-background p-5 shadow-none md:p-6">
+              <div className="relative z-10 rounded-xl border border-border bg-background/80 backdrop-blur-sm p-5 shadow-none md:p-6">
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
                   {extraProjects.map((project, index) => (
                     <a
@@ -214,7 +211,7 @@ export default function Projects() {
                       href={project.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="cursor-target flex items-center justify-center rounded-md border border-border bg-background px-3 py-4 text-center text-[14px] font-medium text-foreground transition-all duration-300 hover:-translate-y-[2px] hover:border-primary hover:text-primary"
+                      className="cursor-target flex items-center justify-center rounded-md border border-border bg-background/50 px-3 py-4 text-center text-[14px] font-medium text-foreground transition-all duration-300 hover:-translate-y-[2px] hover:border-primary hover:text-primary backdrop-blur-sm"
                     >
                       {project.name}
                     </a>
@@ -226,7 +223,7 @@ export default function Projects() {
 
               <div className="relative z-10 pl-2">
                 <a
-                  href="https://github.com/fetehadin"
+                  href="https://github.com/Jennah198"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="cursor-target inline-flex items-center gap-2 text-[15px] font-bold text-foreground transition-colors hover:text-primary"

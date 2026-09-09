@@ -11,7 +11,7 @@ interface CursorGridProps {
 }
 
 export default function CursorGrid({
-  color = "#E91E63",
+  color = "#008080",
   cellSize = 70,
   radius = 140,
   lineWidth = 1.2,

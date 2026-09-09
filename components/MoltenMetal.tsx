@@ -2,8 +2,6 @@
 
 import { motion } from "framer-motion";
 
-// We define the interface to accept all the WebGL props you passed, 
-// even if this CSS version only strictly uses the colors.
 interface MoltenMetalProps {
   color1?: string;
   color2?: string;
@@ -12,9 +10,9 @@ interface MoltenMetalProps {
 }
 
 export default function MoltenMetal({
-  color1 = "#E91E63",
-  color2 = "#B497CF",
-  color3 = "#F2EFE9",
+  color1 = "#008080",
+  color2 = "#008000",
+  color3 = "#ADD8E6",
 }: MoltenMetalProps) {
   return (
     <div className="absolute inset-0 overflow-hidden blur-[100px] pointer-events-none z-0">

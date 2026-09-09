@@ -41,8 +41,13 @@ export default function Education() {
   return (
     <section
       id="education"
-      className="py-20 max-w-4xl mx-auto w-full px-4 sm:px-6 lg:px-8 bg-background"
+      // REMOVED 'bg-background' from this line so it blends with the global molten background
+      className="relative py-20 max-w-4xl mx-auto w-full px-4 sm:px-6 lg:px-8"
     >
+      {/* Optional: Add a subtle fade behind just the content for readability if needed, 
+          uncomment the div below if you want a soft glowing backdrop */}
+      {/* <div className="absolute inset-0 bg-background/30 blur-3xl -z-10 rounded-[100%]" /> */}
+
       <div className="mb-8 flex items-center gap-4">
         <span className="h-[1px] w-12 bg-primary/40"></span>
         <div className="flex items-center gap-2">
@@ -62,8 +67,8 @@ export default function Education() {
       <div className="relative ml-16 md:ml-20 border-l border-border">
         <div className="space-y-14">
           {education.map((edu, index) => (
-            <article key={index} className="relative">
-              <span className="absolute left-0 top-0 z-10 -translate-x-1/2 -translate-y-1/2 inline-flex items-center whitespace-nowrap rounded-full border border-border bg-background px-4 py-1.5 text-sm font-bold text-foreground">
+            <article key={index} className="relative z-10">
+              <span className="absolute left-0 top-0 z-10 -translate-x-1/2 -translate-y-1/2 inline-flex items-center whitespace-nowrap rounded-full border border-border bg-background px-4 py-1.5 text-sm font-bold text-foreground shadow-sm">
                 {edu.date}
               </span>
 
@@ -87,7 +92,7 @@ export default function Education() {
                     {edu.badges.map((badge, idx) => (
                       <span
                         key={idx}
-                        className="cursor-target rounded-full border border-border bg-card px-3 py-1.5 text-[11px] font-semibold tracking-wide text-foreground/65 transition-colors duration-200 hover:border-primary/30 hover:text-primary"
+                        className="cursor-target rounded-full border border-border bg-card/80 backdrop-blur-sm px-3 py-1.5 text-[11px] font-semibold tracking-wide text-foreground/65 transition-colors duration-200 hover:border-primary/30 hover:text-primary"
                       >
                         {badge}
                       </span>

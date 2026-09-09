@@ -32,12 +32,12 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} min-h-full flex flex-col text-foreground antialiased cursor-none relative`} 
         suppressHydrationWarning
       >
-        {/* Layer 1: Molten Background (Deepest) - Rust/Orange Theme */}
+        {/* Layer 1: Molten Background (Deepest) - Light Blue / Green / Teal Palette */}
         <div className="fixed inset-0 -z-20 h-full w-full opacity-40 dark:opacity-20">
           <MoltenMetal
-            color1="#d45025" // Primary Rust/Orange from the new CSS palette
-            color2="#eba288" // Secondary Peach/Light Orange
-            color3="#fdf5f2" // Cream/Background
+            color1="#008080" // Teal
+            color2="#008000" // Green
+            color3="#ADD8E6" // Light Blue
             speed={0.35}
             scale={4}
             detail={3}
@@ -60,7 +60,7 @@ export default function RootLayout({
         <div className="fixed inset-0 -z-10 h-full w-full pointer-events-none">
           <CursorGrid
             cellSize={70}
-            color="#d45025" // Matched to the new primary rust theme
+            color="#008080" // Matched to Teal
             radius={140}
             falloff="smooth"
             holdTime={400}
@@ -80,8 +80,8 @@ export default function RootLayout({
           hideDefaultCursor
           parallaxOn
           hoverDuration={0.2}
-          cursorColor="#161211"
-          cursorColorOnTarget="#d45025" // Primary Rust
+          cursorColor="#008080"
+          cursorColorOnTarget="#008000" // Green Highlight
         />
         
         {/* The Google Translate dropdown */}
