@@ -18,7 +18,7 @@ export default function About() {
         <div className="relative shrink-0">
           <div className="relative h-72 w-72 overflow-hidden rounded-3xl border border-border bg-card shadow-sm sm:h-80 sm:w-80">
             <Image
-              src="/fete.png"
+              src="/fetehadin-gree.png"
               alt="Fetehadin Negash"
               fill
               className="object-cover"
