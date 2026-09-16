@@ -106,7 +106,7 @@ export default function ProjectsSection() {
       title: "TajStore Management System",
       description:
         "A full-stack mobile platform built to streamline wholesale distribution and field sales operations. It provides dedicated portals for administrators and sales reps to manage warehouse checkouts, track live debt ledgers, coordinate supplier batches, and process payment approvals. The app is powered by React Native and Expo Router, featuring biometric security, a custom slate dark mode, and real-time data syncing via TanStack Query and Zustand. It also utilizes Expo Application Services (EAS) to instantly deploy Over-The-Air (OTA) updates to users.",
-      image: "", // Not used since it's a mobile mockup
+      image: "",
       isMobileMockup: true,
       images: [
         "/projects/tajstore-7.jpg",
@@ -115,13 +115,7 @@ export default function ProjectsSection() {
         "/projects/tajstore-4.jpg",
         "/projects/tajstore-2.jpg",
         "/projects/tajstore-3.jpg",
-        "/projects/tajstore-1.jpg"
-        
-        
-        
-        
-        
-        
+        "/projects/tajstore-1.jpg" 
       ],
       stack: [
         { name: "React Native", icon: SiReact, color: "#61DAFB" },
@@ -190,8 +184,6 @@ export default function ProjectsSection() {
         },
       ],
     }
-    
-    
   ];
 
   const extraProjects = [
@@ -308,7 +300,8 @@ export default function ProjectsSection() {
                         {project.buttons.map((button, buttonIndex) => {
                           const ButtonIcon = button.icon;
                           
-                          if (button.disabled) {
+                          // TypeScript narrowing fix
+                          if ('disabled' in button && button.disabled) {
                             return (
                               <span
                                 key={buttonIndex}
