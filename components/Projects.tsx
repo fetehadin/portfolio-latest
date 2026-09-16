@@ -64,7 +64,7 @@ const MobileDeviceMockup = ({ images }: { images: string[] }) => {
             </div>
           ))}
 
-          {/* Navigation Controls (Visible on hover) */}
+          {/* Navigation Controls */}
           <button
             onClick={prevSlide}
             className="absolute left-1 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/60 p-1 text-white opacity-0 transition-all hover:bg-black/90 group-hover/screen:opacity-100"
@@ -150,16 +150,19 @@ export default function ProjectsSection() {
           label: "Website",
           link: "https://smart-duplicate-detector.vercel.app/",
           icon: ExternalLink,
+          disabled: false
         },
         {
           label: "NPM Package",
           link: "https://www.npmjs.com/package/smart-duplicate-detector",
           icon: SiNpm,
+          disabled: false
         },
         {
           label: "Source Code",
           link: "https://github.com/fetehadin/smart-duplicate-detector",
           icon: SiGithub,
+          disabled: false
         }
       ],
     },
@@ -181,6 +184,7 @@ export default function ProjectsSection() {
           label: "Live Demo",
           link: "https://educonnect-frontend-opal.vercel.app",
           icon: ExternalLink,
+          disabled: false
         },
       ],
     }
@@ -300,8 +304,7 @@ export default function ProjectsSection() {
                         {project.buttons.map((button, buttonIndex) => {
                           const ButtonIcon = button.icon;
                           
-                          // TypeScript narrowing fix
-                          if ('disabled' in button && button.disabled) {
+                          if (button.disabled) {
                             return (
                               <span
                                 key={buttonIndex}
