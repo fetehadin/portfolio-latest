@@ -43,54 +43,39 @@ export default function Certificates() {
   const certificates = [
     {
       id: 1,
-      title: "ALX Frontend Development",
-      image: "/alxfrontend.png",
+      title: "ALX Back-End Web Development",
+      image: "/certeficates/Fetehadin-Backend.jpg",
     },
     {
       id: 2,
-      title: "GoldenAge Project Management Certificate",
-      image: "/pm.png",
+      title: "ALX AI Career Essentials",
+      image: "/certeficates/Fetehadin-AiCE.jpg",
     },
     {
       id: 3,
-      title: "H.E.R Hackathon 2026",
-      image: "/HER.png",
+      title: "INSA Certification",
+      image: "/certeficates/fetehadin-INSA.jpg",
     },
     {
       id: 4,
-      title: "ASTU Entrepreneurship and Leadership Certificate",
-      image: "/leadership.png",
+      title: "Data Structures & Algorithms",
+      image: "/certeficates/Fetehadin-DSA_page-0001.jpg",
     },
     {
       id: 5,
-      title: "GoldenAge Frontend Development",
-      image: "/frontend.png",
+      title: "Python Programming",
+      image: "/certeficates/fetehadin-python_page-0001.jpg",
     },
     {
       id: 6,
-      title: "Hira Muslim Student Association STEM Certificate",
-      image: "/HMSA.png",
+      title: "Udacity Certification",
+      image: "/certeficates/Fetehadin-Udacity_page-0001.jpg",
     },
     {
       id: 7,
-      title: "ALX Her Commerce Hackathon 2026",
-      image: "/herCommerce.png",
-    },
-    {
-      id: 8,
-      title: "Lanchitech Startup Development Certificate",
-      image: "/lanchitech.png",
-    },
-    {
-      id: 9,
-      title: "Udemy Programming Fundamentals Certificate",
-      image: "/programing-fundamentals.png",
-    },
-    {
-      id: 10,
-      title: "ALX Professional Skills Certificate",
-      image: "/professional-skills.png",
-    },
+      title: "ALX Certificate of Appreciation",
+      image: "/certeficates/Fetehadin-ALX-appriciation_page-0001.jpg",
+    }
   ];
 
   return (
