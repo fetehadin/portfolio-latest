@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import TargetCursor from "@/components/TargetCursor";
 import MoltenMetal from "@/components/MoltenMetal";
 import CursorGrid from "@/components/CursorGrid";
 
@@ -29,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body 
-        className={`${geistSans.variable} ${geistMono.variable} min-h-full flex flex-col text-foreground antialiased cursor-none relative`} 
+        className={`${geistSans.variable} ${geistMono.variable} min-h-full flex flex-col text-foreground antialiased relative`} 
         suppressHydrationWarning
       >
         {/* Layer 1: Molten Background (Deepest) - Light Blue / Green / Teal Palette */}
@@ -50,18 +49,6 @@ export default function RootLayout({
             lineWidth={1.2}
           />
         </div>
-
-        <TargetCursor 
-          spinDuration={2}
-          hideDefaultCursor
-          parallaxOn
-          hoverDuration={0.2}
-          cursorColor="#008080"
-          cursorColorOnTarget="#008000" // Green Highlight
-        />
-        
-        {/* The Google Translate dropdown */}
-        <div id="google_translate_element" className="absolute top-4 right-4 z-50"></div>
 
         <ThemeProvider
           attribute="class"
