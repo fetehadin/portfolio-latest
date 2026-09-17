@@ -24,6 +24,17 @@ export default function About() {
               className="object-cover"
             />
 
+            {/* Added "Available for work" badge to top-left of the image */}
+            <div className="absolute left-4 top-4 z-10 inline-flex h-8 items-center justify-center gap-2 rounded-full border border-border bg-background/90 px-3 shadow-sm backdrop-blur-sm">
+              <span className="relative flex h-2 w-2 shrink-0">
+                <span className="absolute inset-0 animate-ping rounded-full bg-green-400 opacity-75" />
+                <span className="relative h-2 w-2 rounded-full bg-green-500" />
+              </span>
+              <span className="whitespace-nowrap text-[11px] font-medium text-foreground/80">
+                Available for work
+              </span>
+            </div>
+
             <div className="absolute bottom-4 right-4 flex h-7 w-7 items-center justify-center rounded-full border border-border bg-background shadow-md">
               <span className="h-2.5 w-2.5 rounded-full bg-primary" />
             </div>
@@ -48,7 +59,6 @@ export default function About() {
             Today, I focus on transforming complex challenges into efficient backend logic, smart automation, and high-performing digital solutions that drive real-world impact.
           </p>
 
-          {/* Updated Button Container for Mobile Side-by-Side */}
           <div className="mt-4 flex w-full flex-row items-center gap-3 sm:w-auto sm:gap-4">
             <a
               href="https://drive.google.com/file/d/1HBvlOeg1si_HJ9zASuvfW6hPb1CppOVx/view?usp=sharing"
