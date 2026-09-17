@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { Mail, Phone, Send } from "lucide-react";
+import { Mail, Send } from "lucide-react";
 
 export default function Contact() {
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">(
@@ -125,6 +125,10 @@ export default function Contact() {
             </div>
 
             <div className="flex w-full shrink-0 flex-wrap items-center justify-center gap-3 lg:w-auto lg:justify-end">
+              <SocialLink href="https://x.com/fetebuilds" label="X (Twitter)">
+                <XIcon />
+              </SocialLink>
+
               <SocialLink href="https://github.com/fetehadin" label="GitHub">
                 <GithubIcon />
               </SocialLink>
@@ -139,10 +143,6 @@ export default function Contact() {
 
               <SocialLink href="mailto:fetehadinnegash@gmail.com" label="Email">
                 <Mail className="h-5 w-5" />
-              </SocialLink>
-
-              <SocialLink href="tel:+251986955964" label="Phone">
-                <Phone className="h-5 w-5" />
               </SocialLink>
             </div>
           </div>
@@ -177,6 +177,14 @@ function SocialLink({
     >
       {children}
     </a>
+  );
+}
+
+function XIcon() {
+  return (
+    <svg role="img" viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
+    </svg>
   );
 }
 
