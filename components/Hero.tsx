@@ -16,14 +16,22 @@ export default function Hero() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % PHRASES.length);
-    }, 5000); // Extended duration to 5 seconds per phrase
+    }, 5000); 
 
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <section className="relative min-h-[calc(100vh-130px)] max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-32">
-      <div className="min-h-[calc(100vh-260px)] flex flex-col justify-end pb-12 lg:pb-14">
+    // Reduced top padding on mobile (pt-24) while keeping desktop the same (sm:pt-32)
+    <section className="relative min-h-[calc(100vh-130px)] max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-24 sm:pt-32">
+      
+      {/* 
+        Changed alignment to 'justify-center' for mobile so it balances the space top and bottom.
+        'sm:justify-end' ensures desktop stays exactly as it was.
+        Adjusted mobile min-height to 75vh so it perfectly centers between the navbar and the bottom edge.
+      */}
+      <div className="min-h-[75vh] sm:min-h-[calc(100vh-260px)] flex flex-col justify-center sm:justify-end pb-12 lg:pb-14">
+        
         <p className="mb-6 text-xs sm:text-sm font-medium uppercase tracking-[0.18em] text-foreground/50">
           Software Engineer · Product Builder
         </p>
@@ -36,7 +44,6 @@ export default function Hero() {
           <br />
           <div className="h-[90px] sm:h-[120px] flex items-center justify-start my-2">
             <div className="relative inline-flex items-center justify-center px-8 py-3">
-              {/* Organic Fluid / Blob SVG Background */}
               <svg
                 className="absolute inset-0 w-full h-full text-primary drop-shadow-md scale-125 pointer-events-none"
                 viewBox="0 0 200 200"
@@ -50,7 +57,6 @@ export default function Hero() {
                 />
               </svg>
 
-              {/* Rotating Phrase Content */}
               <span 
                 key={PHRASES[currentIndex]}
                 className="relative z-10 text-primary-foreground font-extrabold tracking-tight text-3xl sm:text-5xl animate-in fade-in zoom-in-95 duration-1000 ease-out text-center whitespace-nowrap"
@@ -62,37 +68,26 @@ export default function Hero() {
           <span className="text-foreground">Today.</span>
         </h1>
      
-        <div className="mt-8 flex flex-wrap items-center gap-4">
-          <div className="inline-flex h-12 items-center justify-center gap-3 rounded-full border border-border bg-card px-6 shadow-sm">
-            <span className="relative flex h-2.5 w-2.5 shrink-0">
-              <span className="absolute inset-0 animate-ping rounded-full bg-green-400 opacity-75" />
-              <span className="relative h-2.5 w-2.5 rounded-full bg-green-500" />
-            </span>
-
-            <span className="text-sm font-medium text-foreground/70">
-              Available for new projects
-            </span>
-          </div>
-
+        <div className="mt-8 flex flex-row items-center gap-2.5 sm:gap-4">
           <a
             href="#projects"
-            className="group inline-flex h-12 items-center justify-center gap-3 rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
+            className="group flex-1 sm:flex-none inline-flex h-9 sm:h-12 items-center justify-center gap-1.5 sm:gap-3 rounded-full bg-primary px-3 sm:px-6 text-[12px] sm:text-sm font-semibold text-primary-foreground shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
           >
-            <span>View My Work</span>
-            <ArrowDownCircle className="h-5 w-5 transition-transform duration-300 group-hover:translate-y-0.5" />
+            <span className="whitespace-nowrap">View My Work</span>
+            <ArrowDownCircle className="h-3.5 w-3.5 sm:h-5 sm:w-5 transition-transform duration-300 group-hover:translate-y-0.5" />
           </a>
 
           <a
             href="https://drive.google.com/file/d/1HBvlOeg1si_HJ9zASuvfW6hPb1CppOVx/view?usp=sharing"
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex h-12 items-center justify-center gap-3 rounded-full border border-border bg-card px-6 text-sm font-semibold text-foreground shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary hover:text-primary hover:shadow-md"
+            className="group flex-1 sm:flex-none inline-flex h-9 sm:h-12 items-center justify-center gap-1.5 sm:gap-3 rounded-full border border-border bg-card px-3 sm:px-6 text-[12px] sm:text-sm font-semibold text-foreground shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary hover:text-primary hover:shadow-md"
           >
             <Folder
-              className="h-5 w-5 text-primary transition-transform duration-300 group-hover:scale-105"
+              className="h-3.5 w-3.5 sm:h-5 sm:w-5 text-primary transition-transform duration-300 group-hover:scale-105"
               fill="currentColor"
             />
-            <span>My Resumes</span>
+            <span className="whitespace-nowrap">My Resumes</span>
           </a>
         </div>
       </div>
