@@ -3,6 +3,21 @@ import { MapPin } from "lucide-react";
 export default function Experience() {
   const experiences = [
     {
+      company: "AfterQuery",
+      role: "Mid-Level Full-Stack Engineer Expert",
+      date: "Aug 2026 – Present",
+      location: "Remote",
+      type: "Professional · Expert Network",
+      description:
+        "Selected to join the AfterQuery Experts network to provide specialized full-stack development. Responsible for building and architecting scalable web applications from end to end, with a strong focus on delivering high-quality, maintainable code and robust technical solutions for complex project requirements.",
+      skills: [
+        "Full-Stack Development",
+        "System Architecture",
+        "Scalability",
+        "Technical Strategy",
+      ],
+    },
+    {
       company: "Ethiopian Artificial Intelligence Institute",
       role: "Data Encoder",
       date: "Aug 2025 – Dec 2025",

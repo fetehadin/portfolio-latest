@@ -24,42 +24,14 @@ import { FaJava } from "react-icons/fa";
 // --- INLINE COMPONENT: Mobile Device Mockup ---
 const MobileDeviceMockup = ({ images }: { images: string[] }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [touchStart, setTouchStart] = useState<number | null>(null);
-  const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
-  // Minimum swipe distance (in px) to trigger a slide change
-  const minSwipeDistance = 40;
-
-  const onTouchStart = (e: React.TouchEvent) => {
-    setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientX);
-  };
-
-  const onTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX);
-  };
-
-  const onTouchEndEvent = () => {
-    if (!touchStart || !touchEnd) return;
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > minSwipeDistance;
-    const isRightSwipe = distance < -minSwipeDistance;
-    
-    if (isLeftSwipe) {
-      nextSlide();
-    }
-    if (isRightSwipe) {
-      prevSlide();
-    }
-  };
-
-  const prevSlide = (e?: React.MouseEvent) => {
-    if (e) e.preventDefault();
+  const prevSlide = (e: React.MouseEvent) => {
+    e.preventDefault();
     setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
   };
 
-  const nextSlide = (e?: React.MouseEvent) => {
-    if (e) e.preventDefault();
+  const nextSlide = (e: React.MouseEvent) => {
+    e.preventDefault();
     setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
 
@@ -73,12 +45,7 @@ const MobileDeviceMockup = ({ images }: { images: string[] }) => {
         </div>
 
         {/* Screen */}
-        <div 
-          className="relative h-full w-full overflow-hidden rounded-[16px] bg-black group/screen cursor-grab active:cursor-grabbing"
-          onTouchStart={onTouchStart}
-          onTouchMove={onTouchMove}
-          onTouchEnd={onTouchEndEvent}
-        >
+        <div className="relative h-full w-full overflow-hidden rounded-[16px] bg-black group/screen">
           {images.map((src, index) => (
             <div
               key={src}
@@ -91,26 +58,24 @@ const MobileDeviceMockup = ({ images }: { images: string[] }) => {
                 alt={`Screenshot ${index + 1}`}
                 fill
                 sizes="160px"
-                className="object-cover object-top pointer-events-none" // Prevents image ghosting while swiping
+                className="object-cover object-top"
                 priority={index === 0}
               />
             </div>
           ))}
 
-          {/* Navigation Controls - Made permanently visible and slightly larger for touch */}
+          {/* Navigation Controls */}
           <button
             onClick={prevSlide}
-            className="absolute left-1 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/50 backdrop-blur-sm p-1.5 text-white shadow-md transition-all hover:bg-black/80 hover:scale-110 active:scale-95"
-            aria-label="Previous image"
+            className="absolute left-1 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/60 p-1 text-white opacity-0 transition-all hover:bg-black/90 group-hover/screen:opacity-100"
           >
-            <ChevronLeft className="h-3.5 w-3.5" />
+            <ChevronLeft className="h-3 w-3" />
           </button>
           <button
             onClick={nextSlide}
-            className="absolute right-1 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/50 backdrop-blur-sm p-1.5 text-white shadow-md transition-all hover:bg-black/80 hover:scale-110 active:scale-95"
-            aria-label="Next image"
+            className="absolute right-1 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/60 p-1 text-white opacity-0 transition-all hover:bg-black/90 group-hover/screen:opacity-100"
           >
-            <ChevronRight className="h-3.5 w-3.5" />
+            <ChevronRight className="h-3 w-3" />
           </button>
 
           {/* Home Bar */}
@@ -420,7 +385,7 @@ export default function ProjectsSection() {
             </div>
           </div>
         </article>
-      </div> 
+      </div>
     </section>
   );
 }

@@ -24,8 +24,8 @@ export default function About() {
               className="object-cover"
             />
 
-            {/* Added "Available for work" badge to top-left of the image */}
-            <div className="absolute left-4 top-4 z-10 inline-flex h-8 items-center justify-center gap-2 rounded-full border border-border bg-background/90 px-3 shadow-sm backdrop-blur-sm">
+            {/* Moved "Available for work" badge to bottom-right of the image */}
+            <div className="absolute bottom-4 right-4 z-10 inline-flex h-8 items-center justify-center gap-2 rounded-full border border-border bg-background/90 px-3 shadow-sm backdrop-blur-sm">
               <span className="relative flex h-2 w-2 shrink-0">
                 <span className="absolute inset-0 animate-ping rounded-full bg-green-400 opacity-75" />
                 <span className="relative h-2 w-2 rounded-full bg-green-500" />
@@ -33,10 +33,6 @@ export default function About() {
               <span className="whitespace-nowrap text-[11px] font-medium text-foreground/80">
                 Available for work
               </span>
-            </div>
-
-            <div className="absolute bottom-4 right-4 flex h-7 w-7 items-center justify-center rounded-full border border-border bg-background shadow-md">
-              <span className="h-2.5 w-2.5 rounded-full bg-primary" />
             </div>
           </div>
         </div>
