@@ -7,37 +7,58 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 export default function Certificates() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const isHovered = useRef(false);
+  const resumeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
+    // Continuous 1px scroll every 20ms for a smooth glide
     const interval = setInterval(() => {
       if (!isHovered.current && scrollContainerRef.current) {
         const { scrollLeft, scrollWidth, clientWidth } =
           scrollContainerRef.current;
 
-        if (scrollLeft + clientWidth >= scrollWidth - 10) {
+        if (scrollLeft + clientWidth >= scrollWidth - 1) {
           scrollContainerRef.current.scrollTo({
             left: 0,
-            behavior: "smooth",
+            behavior: "auto",
           });
         } else {
           scrollContainerRef.current.scrollBy({
-            left: 420,
-            behavior: "smooth",
+            left: 1,
+            behavior: "auto",
           });
         }
       }
-    }, 3500);
+    }, 20);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      if (resumeTimeoutRef.current) clearTimeout(resumeTimeoutRef.current);
+    };
   }, []);
 
   const scroll = (direction: "left" | "right") => {
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollBy({
-        left: direction === "left" ? -420 : 420,
+        left: direction === "left" ? -500 : 500,
         behavior: "smooth",
       });
     }
+  };
+
+  // Pause scrolling immediately when touched or hovered
+  const handleInteractionStart = () => {
+    isHovered.current = true;
+    if (resumeTimeoutRef.current) {
+      clearTimeout(resumeTimeoutRef.current);
+      resumeTimeoutRef.current = null;
+    }
+  };
+
+  // Wait 1.5s after interaction ends before resuming auto-scroll
+  const handleInteractionEnd = () => {
+    resumeTimeoutRef.current = setTimeout(() => {
+      isHovered.current = false;
+    }, 1500);
   };
 
   const certificates = [
@@ -81,84 +102,89 @@ export default function Certificates() {
   return (
     <section
       id="certificates"
-      className="relative py-20 max-w-4xl mx-auto w-full px-4 sm:px-6 lg:px-8"
+      // Expanded to max-w-5xl to allow the carousel more breathing room on desktop
+      className="relative mx-auto w-full max-w-5xl px-4 py-20 sm:px-6 lg:px-8"
     >
-      <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground mb-8 cursor-target">
+      <h2 className="mb-8 text-2xl font-bold tracking-tight text-foreground sm:text-3xl cursor-target">
         Awards & Certificates
       </h2>
 
-      {/* Adjusted margins for mobile left spacing */}
-      <div className="ml-4 sm:ml-12 md:ml-20 h-10 border-l border-dashed border-border" />
+      {/* Hidden entirely on mobile to reclaim horizontal space, visible on sm and up */}
+      <div className="hidden h-10 border-l-2 border-dashed border-foreground/20 dark:border-foreground/30 sm:block sm:ml-12 md:ml-20" />
 
-      <div className="relative ml-4 sm:ml-12 md:ml-20 border-l border-border">
-        <div className="space-y-14">
-          <article className="relative z-10">
-            {/* Adjusted translate-x and padding/text-size for mobile badge */}
-            <span className="absolute left-0 top-0 z-10 -translate-x-2 sm:-translate-x-1/2 -translate-y-1/2 inline-flex items-center whitespace-nowrap rounded-full border border-border bg-background px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-bold text-foreground shadow-sm">
-              Certifications
-            </span>
+      {/* Removed border and left-margin on mobile so the carousel aligns perfectly to the edge */}
+      <div className="relative sm:ml-12 sm:border-l-2 sm:border-foreground/20 dark:sm:border-foreground/30 md:ml-20">
+        <article className="relative z-10">
+          
+          {/* Badge hidden on mobile (since the line is hidden), aligned perfectly on the 2px desktop line */}
+          <span className="absolute left-0 top-0 z-10 hidden sm:inline-flex -translate-x-[calc(50%+1px)] -translate-y-1/2 items-center whitespace-nowrap rounded-full border-2 border-primary/30 bg-background/90 px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-bold text-foreground shadow-sm backdrop-blur-md">
+            Certifications
+          </span>
 
-            {/* Added padding adjustments to clear the badge on smaller screens */}
-            <div className="pt-8 sm:pt-6 pl-6 sm:pl-8">
-              <div
-                className="relative rounded-xl border border-border bg-background/80 backdrop-blur-sm p-4 shadow-sm sm:p-6"
-                onMouseEnter={() => (isHovered.current = true)}
-                onMouseLeave={() => (isHovered.current = false)}
+          {/* Removed left padding (pl-6) on mobile to maximize card width */}
+          <div className="pt-6 sm:pl-8">
+            <div
+              className="relative rounded-xl border border-border bg-background/80 p-2 shadow-sm backdrop-blur-sm sm:p-6"
+              onMouseEnter={handleInteractionStart}
+              onMouseLeave={handleInteractionEnd}
+              onTouchStart={handleInteractionStart}
+              onTouchEnd={handleInteractionEnd}
+            >
+              <button
+                onClick={() => scroll("left")}
+                className="absolute left-0 top-1/2 z-20 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-background text-foreground shadow-sm transition-all hover:scale-105 hover:border-primary hover:text-primary"
+                aria-label="Scroll left"
               >
-                <button
-                  onClick={() => scroll("left")}
-                  className="absolute left-0 top-1/2 z-20 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-background text-foreground shadow-sm transition-all hover:scale-105 hover:border-primary hover:text-primary"
-                  aria-label="Scroll left"
-                >
-                  <ChevronLeft className="h-5 w-5" />
-                </button>
+                <ChevronLeft className="h-5 w-5" />
+              </button>
 
-                <div
-                  ref={scrollContainerRef}
-                  className="flex snap-x snap-mandatory items-center gap-4 overflow-x-auto scroll-smooth pb-4 pt-2"
-                  style={{
-                    scrollbarWidth: "none",
-                    msOverflowStyle: "none",
-                  }}
-                >
-                  <style jsx>{`
-                    div::-webkit-scrollbar {
-                      display: none;
-                    }
-                  `}</style>
+              <div
+                ref={scrollContainerRef}
+                // Removed snap-x constraints so it doesn't fight the continuous scroll animation
+                className="flex items-center gap-4 overflow-x-auto scroll-smooth pb-4 pt-2 sm:gap-6"
+                style={{
+                  scrollbarWidth: "none",
+                  msOverflowStyle: "none",
+                }}
+              >
+                <style jsx>{`
+                  div::-webkit-scrollbar {
+                    display: none;
+                  }
+                `}</style>
 
-                  {certificates.map((cert) => (
-                    <div
-                      key={cert.id}
-                      className="group relative flex aspect-[4/3] w-[300px] shrink-0 snap-center items-center justify-center overflow-hidden rounded-lg border border-border bg-muted/30 p-2 sm:w-[420px]"
-                    >
-                      <Image
-                        src={cert.image}
-                        alt={cert.title}
-                        fill
-                        className="object-contain p-2 transition-transform duration-500 group-hover:scale-105"
-                      />
+                {certificates.map((cert) => (
+                  <div
+                    key={cert.id}
+                    // Responsive width: 85vw on mobile for maximum size, 500px fixed on desktop
+                    className="group relative flex aspect-[4/3] w-[85vw] max-w-[400px] shrink-0 items-center justify-center overflow-hidden rounded-lg border border-border bg-muted/30 p-1 sm:max-w-none sm:w-[500px] sm:p-2"
+                  >
+                    <Image
+                      src={cert.image}
+                      alt={cert.title}
+                      fill
+                      className="object-contain p-1 transition-transform duration-500 group-hover:scale-105 sm:p-2"
+                    />
 
-                      <div className="absolute inset-0 flex items-center justify-center bg-background/80 p-4 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                        <span className="text-sm font-bold text-foreground sm:text-base">
-                          {cert.title}
-                        </span>
-                      </div>
+                    <div className="absolute inset-0 flex items-center justify-center bg-background/80 p-4 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                      <span className="text-base font-bold text-foreground sm:text-lg">
+                        {cert.title}
+                      </span>
                     </div>
-                  ))}
-                </div>
-
-                <button
-                  onClick={() => scroll("right")}
-                  className="absolute right-0 top-1/2 z-20 flex h-10 w-10 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-background text-foreground shadow-sm transition-all hover:scale-105 hover:border-primary hover:text-primary"
-                  aria-label="Scroll right"
-                >
-                  <ChevronRight className="h-5 w-5" />
-                </button>
+                  </div>
+                ))}
               </div>
+
+              <button
+                onClick={() => scroll("right")}
+                className="absolute right-0 top-1/2 z-20 flex h-10 w-10 translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-background text-foreground shadow-sm transition-all hover:scale-105 hover:border-primary hover:text-primary"
+                aria-label="Scroll right"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
             </div>
-          </article>
-        </div>
+          </div>
+        </article>
       </div>
     </section>
   );
