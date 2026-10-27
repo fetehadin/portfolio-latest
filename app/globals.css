@@ -1,119 +1,448 @@
 @import "tailwindcss";
-@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
+/* =========================================================
+   Tokens — taken from the headshot: bottle-green blazer,
+   charcoal-green backdrop. Light is the default, .dark overrides.
+   ========================================================= */
+
 :root {
-  /* Base - Light Theme using Light Blue (#ADD8E6), Green (#008000), and Teal (#008080) */
-  --background: #ADD8E6;
-  --foreground: #008080;
+  --desk: #1f2b29;
+  --glow-1: rgba(30, 120, 95, 0.35);
+  --glow-2: rgba(214, 160, 90, 0.22);
+  --paper: #eceae1;
+  --ink: #1b1c19;
+  /* Darkened from #6E6C64, which was 3.9:1 on the translucent paper; this is 4.9:1. */
+  --muted: #5f5d56;
+  --rule: #d3d0c4;
+  --accent: #0f5a46;
+  --accent-soft: #0f5a4614;
 
-  /* Palette built from the three colors */
-  --primary-50: #e6f7f7;
-  --primary-100: #b3e6e6;
-  --primary-200: #80cccc;
-  --primary-300: #4db3b3;
-  --primary-400: #1a9999;
-  --primary-500: #008080; /* Teal */
-  --primary-600: #007000;
-  --primary-700: #006000;
-  --primary-800: #008000; /* Green */
-  --primary-900: #004d00;
+  /* Pointer offsets for the glows, written by <Desk />. */
+  --gx: 0px;
+  --gy: 0px;
 
-  /* Semantic Colors */
-  --primary: #008080;
-  --primary-foreground: #ffffff;
-
-  --card: #ffffff;
-  --card-foreground: #008080;
-
-  --border: #80cccc;
-
-  --radius: 0.5rem;
+  color-scheme: light;
 }
 
 .dark {
-  --background: #004d00;
-  --foreground: #ADD8E6;
+  --desk: #0e1413;
+  --glow-1: rgba(30, 120, 95, 0.22);
+  --glow-2: rgba(214, 160, 90, 0.12);
+  --paper: #161b1a;
+  --ink: #e6e4db;
+  --muted: #8e9a96;
+  --rule: #2a3331;
+  --accent: #4fb58f;
+  --accent-soft: #4fb58f1f;
 
-  /* Palette built from the three colors */
-  --primary-50: #004d00;
-  --primary-100: #006000;
-  --primary-200: #007000;
-  --primary-300: #008000; /* Green */
-  --primary-400: #008080; /* Teal */
-  --primary-500: #1a9999;
-  --primary-600: #4db3b3;
-  --primary-700: #80cccc;
-  --primary-800: #b3e6e6;
-  --primary-900: #ADD8E6; /* Light Blue */
-
-  /* Semantic Colors */
-  --primary: #008000;
-  --primary-foreground: #ffffff;
-
-  --card: #006000;
-  --card-foreground: #ADD8E6;
-
-  --border: #008080;
+  color-scheme: dark;
 }
 
-/* Expose variables to Tailwind */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-desk: var(--desk);
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-rule: var(--rule);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
 
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-
-  --color-border: var(--border);
-
-  /* Primary palette */
-  --color-primary-50: var(--primary-50);
-  --color-primary-100: var(--primary-100);
-  --color-primary-200: var(--primary-200);
-  --color-primary-300: var(--primary-300);
-  --color-primary-400: var(--primary-400);
-  --color-primary-500: var(--primary-500);
-  --color-primary-600: var(--primary-600);
-  --color-primary-700: var(--primary-700);
-  --color-primary-800: var(--primary-800);
-  --color-primary-900: var(--primary-900);
-
-  --radius-md: var(--radius);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
 /* =========================================================
-   Infinite Marquee Animations
+   Base
    ========================================================= */
 
-@keyframes marquee {
-  0% { transform: translateX(0%); }
-  100% { transform: translateX(-50%); }
+html {
+  background: var(--desk);
+  scroll-padding-top: 1.5rem;
 }
 
-@keyframes marquee-reverse {
-  0% { transform: translateX(-50%); }
-  100% { transform: translateX(0%); }
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
-.animate-marquee {
+body {
+  min-height: 100dvh;
+  background: var(--desk);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--paper);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Links: ink with a hairline underline, accent on hover. */
+.sheet a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, var(--ink) 35%, transparent);
+  transition: color 0.15s, text-decoration-color 0.15s, background-color 0.15s;
+}
+
+.sheet a:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.sheet a.plain {
+  text-decoration: none;
+}
+
+/* =========================================================
+   Desk — background glows + static film grain
+   ========================================================= */
+
+.desk {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      55rem 40rem at calc(8% + var(--gx)) calc(-5% + var(--gy)),
+      var(--glow-1),
+      transparent 70%
+    ),
+    radial-gradient(
+      50rem 36rem at calc(95% + var(--gx)) calc(-8% + var(--gy)),
+      var(--glow-2),
+      transparent 70%
+    ),
+    var(--desk);
+}
+
+.desk::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.07;
+  mix-blend-mode: soft-light;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* =========================================================
+   Sheet — one printed CV page on the desk
+   ========================================================= */
+
+.sheet {
+  position: relative;
+  width: 100%;
+  max-width: 60rem;
+  margin: 3.5rem auto;
+  padding: 3.5rem 4rem 2.5rem;
+  background: color-mix(in srgb, var(--paper) 94%, transparent);
+  border-radius: 2px;
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 0.18),
+    0 2.5rem 5rem -1.5rem rgb(0 0 0 / 0.55);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+  .sheet {
+    margin: 0;
+    max-width: none;
+    min-height: 100dvh;
+    padding: 2rem;
+    border-radius: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .sheet {
+    padding: 1.5rem 1rem 2rem;
+  }
+}
+
+.prose-col {
+  max-width: 76ch;
+}
+
+/* Small-caps labels and metadata */
+.label {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+/* Section headings with a faint # anchor */
+.section {
+  border-top: 1px solid var(--rule);
+  padding-block: 1.75rem;
+}
+
+.section-heading {
   display: flex;
-  width: max-content;
-  animation: marquee 35s linear infinite;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 0.875rem;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
 }
 
-.animate-marquee-reverse {
-  display: flex;
-  width: max-content;
-  animation: marquee-reverse 35s linear infinite;
+.sheet a.anchor {
+  color: color-mix(in srgb, var(--muted) 45%, transparent);
+  text-decoration: none;
+  font-weight: 400;
 }
 
-/* Pause animation on hover */
-.animate-marquee:hover,
-.animate-marquee-reverse:hover {
-  animation-play-state: paused;
+.section:hover a.anchor,
+.sheet a.anchor:focus-visible {
+  color: var(--muted);
+}
+
+.sheet a.anchor:hover {
+  color: var(--accent);
+  background: none;
+}
+
+/* Subtle reveal on scroll — CSS only, no JS. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .section {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 12%;
+    }
+  }
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+
+/* Header photo: slightly desaturated until the header is hovered/focused. */
+.portrait {
+  filter: grayscale(0.35) contrast(1.05);
+}
+
+.sheet-header:hover .portrait,
+.sheet-header:focus-within .portrait {
+  filter: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .portrait {
+    transition: filter 0.3s;
+  }
+}
+
+/* Social tooltip card */
+.tip {
+  position: relative;
+}
+
+.tip-card {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 0.375rem);
+  z-index: 10;
+  width: max-content;
+  max-width: 14rem;
+  padding: 0.5rem 0.625rem;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  background: var(--paper);
+  font-size: 0.6875rem;
+  line-height: 1.45;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(2px);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .tip-card {
+    transition: opacity 0.15s, transform 0.15s, visibility 0.15s;
+  }
+}
+
+.tip:hover .tip-card,
+.tip:focus-within .tip-card {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+/* Case-study disclosure */
+.case summary {
+  cursor: pointer;
+  list-style: none;
+  width: fit-content;
+  color: var(--muted);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--rule);
+}
+
+.case summary::-webkit-details-marker {
+  display: none;
+}
+
+.case summary:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+
+.case summary::before {
+  content: "+ ";
+}
+
+.case[open] summary::before {
+  content: "− ";
+}
+
+/* Native dialogs */
+dialog.sheet-dialog {
+  margin: auto;
+  max-width: min(56rem, calc(100vw - 2rem));
+  max-height: calc(100dvh - 2rem);
+  padding: 1rem;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  box-shadow: 0 2rem 4rem -1rem rgb(0 0 0 / 0.5);
+}
+
+dialog.sheet-dialog::backdrop {
+  background: rgb(14 20 19 / 0.6);
+}
+
+/* Form fields */
+.field {
+  width: 100%;
+  padding: 0.5rem 0.625rem;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+}
+
+.field::placeholder {
+  color: var(--muted);
+}
+
+.field:focus-visible {
+  border-color: var(--accent);
+  outline: 1px solid var(--accent);
+  outline-offset: 0;
+}
+
+.kbd {
+  display: inline-block;
+  min-width: 1.4em;
+  padding: 0 0.3em;
+  border: 1px solid var(--rule);
+  border-bottom-width: 2px;
+  border-radius: 2px;
+  text-align: center;
+  font-size: 0.6875rem;
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 1.5rem;
+  z-index: 50;
+  transform: translateX(-50%);
+  padding: 0.375rem 0.75rem;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 0.75rem;
+}
+
+/* =========================================================
+   Print — a clean A4 CV in black on white
+   ========================================================= */
+
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm 14mm;
+  }
+
+  :root,
+  .dark {
+    --paper: #fff;
+    --ink: #000;
+    --muted: #444;
+    --rule: #bbb;
+    --accent: #000;
+    --accent-soft: transparent;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+  }
+
+  .desk,
+  .no-print,
+  .toast,
+  dialog {
+    display: none !important;
+  }
+
+  .sheet {
+    margin: 0;
+    max-width: none;
+    padding: 0;
+    box-shadow: none;
+    background: #fff;
+    font-size: 8.5pt;
+    line-height: 1.45;
+  }
+
+  .section {
+    padding-block: 0.6rem;
+    animation: none !important;
+    break-inside: avoid;
+  }
+
+  .section-heading {
+    margin-bottom: 0.3rem;
+  }
+
+  .sheet a {
+    text-decoration: none;
+  }
+
+  .portrait {
+    filter: grayscale(1);
+  }
 }
