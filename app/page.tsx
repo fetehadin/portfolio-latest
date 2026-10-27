@@ -83,7 +83,7 @@ export default function Home() {
 
       <footer className="no-print flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-t border-rule pt-5 text-muted">
         <p>
-          <a href={profile.site} className="plain">
+          <a href={profile.site}>
             {profile.domain}
           </a>{" "}
           · © 2026 · Design inspired by{" "}
