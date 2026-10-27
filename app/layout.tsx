@@ -59,7 +59,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <a
           href="#main"
-          className="sr-only z-50 rounded-[2px] bg-paper px-3 py-1.5 text-ink focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+          className="no-print sr-only z-50 rounded-[2px] bg-paper px-3 py-1.5 text-ink focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
         >
           Skip to content
         </a>

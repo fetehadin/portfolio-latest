@@ -2,6 +2,8 @@ import Image from "next/image";
 import { nav, profile, socials } from "@/content/cv";
 import ThemeToggle from "@/components/ThemeToggle";
 
+const telegram = socials.find((social) => social.network === "Telegram");
+
 export default function SheetHeader() {
   return (
     <header className="sheet-header pb-7">
@@ -26,6 +28,9 @@ export default function SheetHeader() {
             </h1>
             <p className="mt-1">{profile.role}</p>
             <p className="text-muted">{profile.location}</p>
+            <p className="hidden print:block">
+              {profile.email} · {profile.domain} · Telegram {telegram?.handle}
+            </p>
           </div>
         </div>
 

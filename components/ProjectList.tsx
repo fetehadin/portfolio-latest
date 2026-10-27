@@ -44,7 +44,7 @@ export default function ProjectList() {
                 <CaseBlock heading="What I built" text={project.built} />
                 <CaseBlock heading="Result" text={project.result} />
                 {project.screenshots && (
-                  <div className="mt-4 flex gap-3 overflow-x-auto">
+                  <div className="mt-4 grid max-w-[26rem] grid-cols-3 gap-3">
                     {project.screenshots.map((shot) => (
                       <Image
                         key={shot.src}
@@ -53,7 +53,7 @@ export default function ProjectList() {
                         width={shot.width}
                         height={shot.height}
                         sizes="8rem"
-                        className="h-auto w-32 shrink-0 rounded-[2px] border border-rule"
+                        className="h-auto w-full rounded-[2px] border border-rule"
                       />
                     ))}
                   </div>

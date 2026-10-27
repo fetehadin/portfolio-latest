@@ -81,7 +81,7 @@ export default function Home() {
         </Section>
       </main>
 
-      <footer className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-t border-rule pt-5 text-muted">
+      <footer className="no-print flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-t border-rule pt-5 text-muted">
         <p>
           <a href={profile.site} className="plain">
             {profile.domain}

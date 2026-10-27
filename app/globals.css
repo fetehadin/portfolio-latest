@@ -72,7 +72,7 @@ body {
   min-height: 100dvh;
   background: var(--desk);
   color: var(--ink);
-  font-family: var(--font-mono);
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -181,7 +181,7 @@ body {
 
 /* Small-caps labels and metadata */
 .label {
-  font-family: var(--font-sans);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   font-size: 0.6875rem;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -199,7 +199,7 @@ body {
   align-items: baseline;
   gap: 0.5rem;
   margin-bottom: 0.875rem;
-  font-family: var(--font-sans);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   font-size: 0.8125rem;
   font-weight: 600;
   letter-spacing: -0.005em;
@@ -290,6 +290,13 @@ body {
   opacity: 1;
   visibility: visible;
   transform: none;
+}
+
+/* Hover cards mean nothing on touch, and would overflow narrow screens. */
+@media (hover: none), (max-width: 640px) {
+  .tip-card {
+    display: none;
+  }
 }
 
 /* Case-study disclosure */
@@ -413,6 +420,7 @@ dialog.sheet-dialog::backdrop {
 
   .desk,
   .no-print,
+  #contact,
   .toast,
   dialog {
     display: none !important;
@@ -421,24 +429,34 @@ dialog.sheet-dialog::backdrop {
   .sheet {
     margin: 0;
     max-width: none;
+    min-height: 0;
     padding: 0;
     box-shadow: none;
     background: #fff;
-    font-size: 8.5pt;
-    line-height: 1.45;
+    font-size: 8pt;
+    line-height: 1.38;
+  }
+
+  .sheet-header {
+    padding-bottom: 0.6rem;
   }
 
   .section {
-    padding-block: 0.6rem;
+    padding-block: 0.45rem;
     animation: none !important;
     break-inside: avoid;
   }
 
   .section-heading {
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.2rem;
   }
 
-  .sheet a {
+  .sheet a.anchor {
+    display: none;
+  }
+
+  .sheet a,
+  .sheet button span {
     text-decoration: none;
   }
 
