@@ -25,7 +25,7 @@ export default function CertificateList() {
               className="group flex w-full flex-wrap items-baseline justify-between gap-x-6 py-0.5 text-left"
               aria-haspopup="dialog"
             >
-              <span className="underline decoration-rule decoration-1 underline-offset-3 group-hover:text-accent group-hover:decoration-accent">
+              <span className="underline decoration-rule decoration-1 underline-offset-3 group-hover:text-accent group-hover:decoration-accent print:no-underline">
                 {cert.name}
                 <span className="text-muted"> · {cert.issuer}</span>
               </span>

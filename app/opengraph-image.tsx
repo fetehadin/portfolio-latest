@@ -50,7 +50,7 @@ export default async function OpengraphImage() {
             <div style={{ display: "flex", flexDirection: "column" }}>
               <div style={{ fontSize: 60, fontWeight: 600, letterSpacing: -2 }}>{profile.name}</div>
               <div style={{ fontSize: 30, marginTop: 8 }}>{profile.role}</div>
-              <div style={{ fontSize: 24, marginTop: 6, color: "#5F5D56" }}>{profile.location}</div>
+              <div style={{ fontSize: 24, marginTop: 6, color: "#5F5D56" }}>{`${profile.city} · ${profile.utc} · Remote`}</div>
             </div>
           </div>
           <div
@@ -64,7 +64,7 @@ export default async function OpengraphImage() {
             }}
           >
             <span style={{ color: "#0F5A46" }}>{profile.domain}</span>
-            <span>backend · apis · automation</span>
+            <span>3 years · backend · apis · full-stack</span>
           </div>
         </div>
       </div>

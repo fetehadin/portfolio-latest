@@ -95,17 +95,20 @@ body {
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
   text-decoration-color: color-mix(in srgb, var(--ink) 35%, transparent);
-  transition: color 0.15s, text-decoration-color 0.15s, background-color 0.15s;
+  transition: color 0.15s, text-decoration-color 0.15s, background-color 0.15s, border-color 0.15s;
 }
 
 .sheet a:hover {
   color: var(--accent);
   text-decoration-color: var(--accent);
-  background: var(--accent-soft);
 }
 
 .sheet a.plain {
   text-decoration: none;
+}
+
+.sans {
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
 }
 
 /* =========================================================
@@ -131,10 +134,12 @@ body {
     var(--desk);
 }
 
+.grain::after,
 .desk::after {
   content: "";
   position: absolute;
   inset: 0;
+  pointer-events: none;
   opacity: 0.07;
   mix-blend-mode: soft-light;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -151,12 +156,12 @@ body {
   margin: 3.5rem auto;
   padding: 3.5rem 4rem 2.5rem;
   background: color-mix(in srgb, var(--paper) 94%, transparent);
-  border-radius: 2px;
+  border-radius: 1rem;
   box-shadow:
     0 1px 2px rgb(0 0 0 / 0.18),
     0 2.5rem 5rem -1.5rem rgb(0 0 0 / 0.55);
   font-size: 0.8125rem;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 @media (max-width: 900px) {
@@ -176,7 +181,7 @@ body {
 }
 
 .prose-col {
-  max-width: 76ch;
+  max-width: 68ch;
 }
 
 /* Small-caps labels and metadata */
@@ -184,29 +189,59 @@ body {
   font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   font-size: 0.6875rem;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   color: var(--muted);
 }
 
-/* Section headings with a faint # anchor */
+/* =========================================================
+   Sections — numbered label column + content column
+   ========================================================= */
+
 .section {
+  display: grid;
+  grid-template-columns: 10rem minmax(0, 1fr);
+  column-gap: 2.5rem;
+  padding-block: 2.25rem;
   border-top: 1px solid var(--rule);
-  padding-block: 1.75rem;
+}
+
+.section-label {
+  align-self: start;
+  position: sticky;
+  top: 1.5rem;
+}
+
+@media (max-width: 720px) {
+  .section {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 0.75rem;
+    padding-block: 1.75rem;
+  }
+
+  .section-label {
+    position: static;
+  }
 }
 
 .section-heading {
   display: flex;
   align-items: baseline;
   gap: 0.5rem;
-  margin-bottom: 0.875rem;
   font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  font-size: 0.8125rem;
+  font-size: 0.9375rem;
   font-weight: 600;
-  letter-spacing: -0.005em;
+  letter-spacing: -0.01em;
+}
+
+.section-num {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  font-weight: 400;
+  color: var(--accent);
 }
 
 .sheet a.anchor {
-  color: color-mix(in srgb, var(--muted) 45%, transparent);
+  color: transparent;
   text-decoration: none;
   font-weight: 400;
 }
@@ -218,7 +253,30 @@ body {
 
 .sheet a.anchor:hover {
   color: var(--accent);
-  background: none;
+}
+
+/* Unnumbered label rows inside a section (Looking for, Elsewhere…) */
+.subrow {
+  display: grid;
+  grid-template-columns: 10rem minmax(0, 1fr);
+  column-gap: 2.5rem;
+  margin-top: 1.75rem;
+}
+
+.subrow-label {
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 600;
+  width: fit-content;
+  height: fit-content;
+  border-bottom: 2px solid var(--accent);
+  line-height: 1.5;
+}
+
+@media (max-width: 720px) {
+  .subrow {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 0.5rem;
+  }
 }
 
 /* Subtle reveal on scroll — CSS only, no JS. */
@@ -239,7 +297,10 @@ body {
   }
 }
 
-/* Header photo: slightly desaturated until the header is hovered/focused. */
+/* =========================================================
+   Header
+   ========================================================= */
+
 .portrait {
   filter: grayscale(0.35) contrast(1.05);
 }
@@ -255,87 +316,230 @@ body {
   }
 }
 
-/* Social tooltip card */
-.tip {
-  position: relative;
+.nav-link {
+  padding-bottom: 2px;
+  border-bottom: 2px solid transparent;
+  color: var(--muted);
 }
 
-.tip-card {
+.sheet a.nav-link:hover {
+  color: var(--ink);
+}
+
+.sheet a.nav-link[aria-current="true"] {
+  color: var(--ink);
+  border-bottom-color: var(--accent);
+}
+
+.icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.375rem;
+  color: var(--muted);
+}
+
+.sheet a.icon-link:hover,
+button.icon-link:hover {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.action-bar {
+  border: 1px solid var(--rule);
+  border-radius: 0.625rem;
+  padding: 0.25rem 0.5rem;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--rule);
+  border-radius: 0.375rem;
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  color: var(--muted);
+}
+
+.sheet a.chip {
+  text-decoration: none;
+  color: var(--muted);
+}
+
+.sheet a.chip:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+/* =========================================================
+   Work timeline
+   ========================================================= */
+
+.monogram {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--rule);
+  background: var(--desk);
+  color: #eceae1;
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.track {
+  position: relative;
+  height: 0.75rem;
+}
+
+.track::before {
+  content: "";
   position: absolute;
   left: 0;
-  top: calc(100% + 0.375rem);
-  z-index: 10;
-  width: max-content;
-  max-width: 14rem;
-  padding: 0.5rem 0.625rem;
-  border: 1px solid var(--rule);
-  border-radius: 2px;
-  background: var(--paper);
-  font-size: 0.6875rem;
-  line-height: 1.45;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(2px);
-  pointer-events: none;
+  right: 0;
+  top: 50%;
+  border-top: 1px solid var(--rule);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .tip-card {
-    transition: opacity 0.15s, transform 0.15s, visibility 0.15s;
-  }
+.track-tick {
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  border-left: 1px solid var(--rule);
 }
 
-.tip:hover .tip-card,
-.tip:focus-within .tip-card {
-  opacity: 1;
-  visibility: visible;
-  transform: none;
+.track-bar {
+  position: absolute;
+  top: calc(50% - 2px);
+  height: 4px;
+  border-radius: 1px;
+  background: repeating-linear-gradient(90deg, var(--accent) 0 2px, transparent 2px 3px);
 }
 
-/* Hover cards mean nothing on touch, and would overflow narrow screens. */
-@media (hover: none), (max-width: 640px) {
-  .tip-card {
-    display: none;
-  }
+.track-bar.current::after {
+  content: "";
+  position: absolute;
+  right: -1px;
+  top: -4px;
+  bottom: -4px;
+  border-right: 2px solid var(--accent);
 }
 
-/* Case-study disclosure */
-.case summary {
+.role summary {
   cursor: pointer;
   list-style: none;
-  width: fit-content;
-  color: var(--muted);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 3px;
-  text-decoration-color: var(--rule);
 }
 
-.case summary::-webkit-details-marker {
+.role summary::-webkit-details-marker {
   display: none;
 }
 
-.case summary:hover {
+.role .chev {
+  transition: transform 0.2s;
+}
+
+.role[open] .chev {
+  transform: rotate(90deg);
+}
+
+.role summary:hover .role-org {
   color: var(--accent);
-  text-decoration-color: var(--accent);
 }
 
-.case summary::before {
-  content: "+ ";
+/* =========================================================
+   Project cards
+   ========================================================= */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  border-radius: 0.875rem;
 }
 
-.case[open] summary::before {
-  content: "− ";
+.sheet a.card {
+  text-decoration: none;
 }
 
-/* Native dialogs */
+.sheet a.card:hover {
+  color: var(--ink);
+  border-color: color-mix(in srgb, var(--accent) 60%, var(--rule));
+}
+
+.card-art {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(28rem 16rem at 12% 0%, rgba(30, 120, 95, 0.55), transparent 70%),
+    radial-gradient(24rem 14rem at 100% 0%, rgba(214, 160, 90, 0.3), transparent 70%),
+    #1f2b29;
+}
+
+.card-art img {
+  filter: grayscale(0.25);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .card-art .art-inner {
+    transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .card-art img {
+    transition: filter 0.3s;
+  }
+
+  .card:hover .art-inner {
+    transform: translateY(-6px);
+  }
+}
+
+.card:hover .card-art img {
+  filter: none;
+}
+
+.art-chip {
+  position: absolute;
+  top: 0.75rem;
+  z-index: 2;
+  padding: 0.05rem 0.45rem;
+  border: 1px solid rgb(236 234 225 / 0.25);
+  border-radius: 0.3rem;
+  background: rgb(14 20 19 / 0.65);
+  color: #e6e4db;
+  font-size: 0.625rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.card-cta {
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.card:hover .card-cta {
+  color: var(--accent);
+}
+
+/* =========================================================
+   Dialogs, form, small bits
+   ========================================================= */
+
 dialog.sheet-dialog {
   margin: auto;
   max-width: min(56rem, calc(100vw - 2rem));
   max-height: calc(100dvh - 2rem);
   padding: 1rem;
   border: 1px solid var(--rule);
-  border-radius: 2px;
+  border-radius: 0.75rem;
   background: var(--paper);
   color: var(--ink);
   font-size: 0.8125rem;
@@ -347,12 +551,11 @@ dialog.sheet-dialog::backdrop {
   background: rgb(14 20 19 / 0.6);
 }
 
-/* Form fields */
 .field {
   width: 100%;
   padding: 0.5rem 0.625rem;
   border: 1px solid var(--rule);
-  border-radius: 2px;
+  border-radius: 0.375rem;
   background: transparent;
   color: var(--ink);
   font: inherit;
@@ -374,7 +577,7 @@ dialog.sheet-dialog::backdrop {
   padding: 0 0.3em;
   border: 1px solid var(--rule);
   border-bottom-width: 2px;
-  border-radius: 2px;
+  border-radius: 0.25rem;
   text-align: center;
   font-size: 0.6875rem;
 }
@@ -387,7 +590,7 @@ dialog.sheet-dialog::backdrop {
   transform: translateX(-50%);
   padding: 0.375rem 0.75rem;
   border: 1px solid var(--rule);
-  border-radius: 2px;
+  border-radius: 0.375rem;
   background: var(--paper);
   color: var(--ink);
   font-size: 0.75rem;
@@ -420,9 +623,9 @@ dialog.sheet-dialog::backdrop {
 
   .desk,
   .no-print,
-  #contact,
   .toast,
-  dialog {
+  dialog,
+  #contact {
     display: none !important;
   }
 
@@ -431,6 +634,7 @@ dialog.sheet-dialog::backdrop {
     max-width: none;
     min-height: 0;
     padding: 0;
+    border-radius: 0;
     box-shadow: none;
     background: #fff;
     font-size: 8pt;
@@ -438,25 +642,40 @@ dialog.sheet-dialog::backdrop {
   }
 
   .sheet-header {
-    padding-bottom: 0.6rem;
+    padding-bottom: 0.5rem;
   }
 
   .section {
+    grid-template-columns: 7rem minmax(0, 1fr);
+    column-gap: 1rem;
     padding-block: 0.45rem;
     animation: none !important;
     break-inside: avoid;
   }
 
-  .section-heading {
-    margin-bottom: 0.2rem;
+  .section-label {
+    position: static;
   }
 
-  .sheet a.anchor {
+  .section-heading {
+    font-size: 9pt;
+  }
+
+  .subrow {
+    grid-template-columns: 7rem minmax(0, 1fr);
+    column-gap: 1rem;
+    margin-top: 0.4rem;
+  }
+
+  .sheet a.anchor,
+  .track,
+  .chev,
+  .monogram,
+  .section-label .label {
     display: none;
   }
 
-  .sheet a,
-  .sheet button span {
+  .sheet a {
     text-decoration: none;
   }
 
