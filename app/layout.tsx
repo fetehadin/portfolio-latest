@@ -42,11 +42,9 @@ export const metadata: Metadata = {
   },
 };
 
+// Light is the default; <Desk /> updates this when the theme is toggled.
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#1F2B29" },
-    { media: "(prefers-color-scheme: dark)", color: "#0E1413" },
-  ],
+  themeColor: "#1F2B29",
 };
 
 export default function RootLayout({
@@ -63,7 +61,7 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} disableTransitionOnChange>
           <Desk />
           {children}
         </ThemeProvider>
