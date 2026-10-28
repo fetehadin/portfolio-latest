@@ -33,7 +33,7 @@ export default function Hero() {
   const [first, ...rest] = profile.name.split(" ");
 
   return (
-    <section aria-labelledby="hero-heading" className="hero container pt-28 pb-16 sm:pt-36 lg:pt-44 lg:pb-24">
+    <section aria-labelledby="hero-heading" className="hero container pt-28 pb-16 sm:pt-32 lg:pt-32 lg:pb-24">
       <div className="lg:grid lg:grid-cols-12 lg:items-center lg:gap-10">
         <div className="lg:col-span-8">
           <p className="status">

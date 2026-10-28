@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { TechIcon } from "@/lib/tech";
 import {
@@ -14,7 +13,6 @@ import {
   profile,
   projects,
   skills,
-  socials,
   testimonials,
 } from "@/content/site";
 import SiteHeader from "@/components/SiteHeader";
@@ -26,6 +24,7 @@ import ExperienceTimeline from "@/components/ExperienceTimeline";
 import CertificateList from "@/components/CertificateList";
 import CopyEmail from "@/components/CopyEmail";
 import ContactForm from "@/components/ContactForm";
+import SocialLinks from "@/components/SocialLinks";
 import Testimonials from "@/components/Testimonials";
 
 // Rebuilt daily so role durations ("4 mos") stay current.
@@ -178,17 +177,11 @@ export default function Home() {
               <dd>
                 <CopyEmail />
               </dd>
-              {socials.map((social) => (
-                <Fragment key={social.network}>
-                  <dt className="label pt-1">{social.network}</dt>
-                  <dd>
-                    <a href={social.href} target="_blank" rel="noopener noreferrer">
-                      {social.handle}
-                    </a>
-                  </dd>
-                </Fragment>
-              ))}
             </dl>
+
+            <div className="mt-6">
+              <SocialLinks />
+            </div>
 
             <Testimonials items={testimonials} />
 

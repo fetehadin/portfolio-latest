@@ -181,6 +181,20 @@ export const experience: Role[] = [
   },
   {
     org: "ALX Africa",
+    title: "Volunteer Mentor, Catch-Up Squad",
+    kind: "Volunteer",
+    from: "2025-06",
+    to: "2025-07",
+    location: "Remote",
+    summary: "Mentored frontend learners in ALX's Catch-Up Squad.",
+    bullets: [
+      "Answered learners' technical questions in the forums and on Discord.",
+      "Kept the peer-learning space welcoming, and received ALX's Certificate of Appreciation.",
+    ],
+    tags: ["Mentoring", "Frontend"],
+  },
+  {
+    org: "ALX Africa",
     title: "Backend Developer Trainee",
     kind: "Intensive program",
     from: "2024-08",
@@ -449,7 +463,7 @@ export const practice = ["API design", "System design", "Relational modeling", "
 // ---------------------------------------------------------------------------
 
 export const education: School[] = [
-  { name: "HiLCoE School of Computer Science & Technology", degree: "B.Sc. Software Engineering", start: "2023", end: "Present" },
+  { name: "HiLCoE School of Computer Science & Technology", degree: "B.Sc. Software Engineering", start: "2025", end: "Present" },
   // TODO(fetehadin): confirm AAU status/dates — the old site said "2021 – Present".
   { name: "Addis Ababa University", degree: "Civil & Environmental Engineering", start: "2021", end: "Present" },
   { name: "Hayrenzi Special Secondary School", degree: "High school diploma", start: "2018", end: "2021" },
