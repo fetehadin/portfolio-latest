@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# fetehadin.pro.et
 
-## Getting Started
+The portfolio of Fetehadin Negash, full-stack engineer. Built with Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4, `next-themes` and Geist, with Resend for the contact form.
 
-First, run the development server:
+## Run it locally
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev          # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Before you push:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run lint
+npm run build && npm run start   # production build at http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Environment variables
 
-## Learn More
+Only the contact form needs them. Put them in `.env.local` locally and in the Vercel project settings for deploys:
 
-To learn more about Next.js, take a look at the following resources:
+| Variable | What it is |
+|---|---|
+| `RESEND_API_KEY` | API key from [resend.com](https://resend.com) |
+| `CONTACT_EMAIL` | The inbox that receives contact-form messages |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Without them the site still builds and runs normally; the form just returns "not configured" instead of sending.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Edit the content
 
-## Deploy on Vercel
+All copy lives in **`content/site.ts`**. Components only render it, so you should rarely need to touch anything else.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| To change… | Edit in `content/site.ts` |
+|---|---|
+| Name, positioning line, availability, email, CV link | `profile` |
+| Hero proof chips | `proof` |
+| Jobs and programs | `experience` (most recent first; `to: null` means current) |
+| Project cards *and* case-study pages | `projects` |
+| Small GitHub projects | `moreProjects` |
+| "How I work" steps and remote habits | `process`, `communication` |
+| Skills | `skills`, `practice` |
+| Education and certificates | `education`, `certificates` (images in `public/certificates/`) |
+| Testimonials | `testimonials` (the section stays hidden while it's empty) |
+| FAQ | `faqs` (questions with `a: null` are hidden) |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The same data also generates the printed CV, `/cv.md`, `/llms.txt`, the Open Graph image and the JSON-LD.
+
+Search for `TODO(fetehadin)` to find the facts still to fill in.
+
+Rules for the copy: every number must be true, spelling is American, and anything unknown gets a TODO rather than a guess.
+
+## What's where
+
+```
+app/
+  page.tsx               home page (server component)
+  work/[slug]/page.tsx   case studies, one template for all three
+  colophon/              how the site is made
+  cv.md/, llms.txt/      plain-text versions generated from content/site.ts
+  opengraph-image.tsx    1200×630 social card
+  sitemap.ts, robots.ts
+  api/contact/route.ts   Resend contact endpoint (validation + honeypot)
+components/              small server components, plus client islands for the
+                         theme toggle, clock, copy button, certificate dialog,
+                         contact form and keyboard shortcuts
+content/site.ts          all content, typed
+lib/                     contact validation shared by form and API, CV text
+docs/redesign-audit.md   reference teardown, design decisions and reviews
+```
+
+Keyboard shortcuts: `1`–`6` jump to sections, `t` toggles the theme, `c` copies the email, `p` prints the CV, and `?` shows help. Printing the home page (`p` or Ctrl+P) produces a 2-page A4 CV.
+
+## Deploy
+
+The site deploys to Vercel. Pushing a branch creates a preview deployment; merging into `main` deploys to production at https://fetehadin.pro.et. Set the two environment variables above in the Vercel project first.
