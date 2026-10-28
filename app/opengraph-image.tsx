@@ -1,7 +1,6 @@
-import { readFile } from "node:fs/promises";
-import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { profile } from "@/content/site";
+import { readPublicFile } from "@/lib/public-file";
 
 export const alt = `${profile.name}, ${profile.role} in ${profile.city}`;
 export const size = { width: 1200, height: 630 };
@@ -9,14 +8,13 @@ export const contentType = "image/png";
 
 /** Photo, name and positioning on the light palette. */
 export default async function OpengraphImage() {
-  const photo = await readFile(join(process.cwd(), "public", profile.photo));
+  const photo = await readPublicFile(profile.photo);
   const photoSrc = `data:image/png;base64,${photo.toString("base64")}`;
   const [firstSentence] = profile.positioning.split(/(?<=\.)\s/);
-  // Geist ships as TTF in the geist package; Satori can't read woff2.
-  const fontDir = join(process.cwd(), "node_modules", "geist", "dist", "fonts", "geist-sans");
+  // Geist TTFs copied from the geist package; Satori can't read woff2.
   const [regular, semibold] = await Promise.all([
-    readFile(join(fontDir, "Geist-Regular.ttf")),
-    readFile(join(fontDir, "Geist-SemiBold.ttf")),
+    readPublicFile("/fonts/Geist-Regular.ttf"),
+    readPublicFile("/fonts/Geist-SemiBold.ttf"),
   ]);
 
   return new ImageResponse(
