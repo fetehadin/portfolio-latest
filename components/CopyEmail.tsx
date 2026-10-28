@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { Check, Mail } from "lucide-react";
-import { profile } from "@/content/cv";
+import { Check, Copy } from "lucide-react";
+import { profile } from "@/content/site";
 
-export default function CopyEmail() {
+/** The email as visible text, plus a copy button. */
+export default function CopyEmail({ className = "" }: { className?: string }) {
   const [copied, setCopied] = useState(false);
 
   async function copy() {
@@ -18,15 +19,20 @@ export default function CopyEmail() {
   }
 
   return (
-    <button
-      type="button"
-      onClick={copy}
-      aria-label={copied ? "Email address copied" : `Copy email address ${profile.email}`}
-      title="Copy email (c)"
-      className="sans inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-muted transition-colors hover:bg-accent-soft hover:text-accent"
-    >
-      {copied ? <Check className="size-3.5" aria-hidden="true" /> : <Mail className="size-3.5" aria-hidden="true" />}
-      {copied ? "Copied" : "Email"}
-    </button>
+    <span className={`inline-flex flex-wrap items-center gap-x-2 gap-y-1 ${className}`}>
+      <a href={`mailto:${profile.email}`} className="break-all">
+        {profile.email}
+      </a>
+      <button
+        type="button"
+        onClick={copy}
+        title="Copy email (c)"
+        className="no-print inline-flex min-h-8 items-center gap-1.5 rounded-md border border-rule px-2 text-sm text-muted transition-colors hover:border-accent hover:text-accent"
+      >
+        {copied ? <Check className="size-3.5" aria-hidden="true" /> : <Copy className="size-3.5" aria-hidden="true" />}
+        <span aria-live="polite">{copied ? "Copied" : "Copy"}</span>
+        <span className="sr-only"> email address</span>
+      </button>
+    </span>
   );
 }

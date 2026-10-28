@@ -2,9 +2,9 @@
 
 import { useRef, useState } from "react";
 import Image from "next/image";
-import { certificates, type Certificate } from "@/content/cv";
+import { certificates, type Certificate } from "@/content/site";
 
-/** A plain list; the certificate image only loads when its row is opened. */
+/** A plain list; each certificate image only loads when its row is opened in a native dialog. */
 export default function CertificateList() {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [open, setOpen] = useState<Certificate | null>(null);
@@ -16,20 +16,22 @@ export default function CertificateList() {
 
   return (
     <>
-      <ul>
+      <ul className="divide-y divide-rule border-y border-rule">
         {certificates.map((cert) => (
           <li key={cert.image}>
             <button
               type="button"
               onClick={() => show(cert)}
-              className="group flex w-full flex-wrap items-baseline justify-between gap-x-6 py-0.5 text-left"
               aria-haspopup="dialog"
+              className="group flex w-full items-baseline justify-between gap-x-6 py-2.5 text-left print:py-0.5"
             >
-              <span className="underline decoration-rule decoration-1 underline-offset-3 group-hover:text-accent group-hover:decoration-accent print:no-underline">
-                {cert.name}
+              <span className="min-w-0">
+                <span className="underline decoration-rule underline-offset-[3px] group-hover:text-accent group-hover:decoration-accent print:no-underline">
+                  {cert.name}
+                </span>
                 <span className="text-muted"> · {cert.issuer}</span>
               </span>
-              <span className="text-muted">{cert.year}</span>
+              <span className="label shrink-0">{cert.year}</span>
             </button>
           </li>
         ))}
@@ -37,7 +39,7 @@ export default function CertificateList() {
 
       <dialog
         ref={dialogRef}
-        className="sheet-dialog w-full"
+        className="dialog w-full"
         aria-label={open ? `${open.name} certificate` : "Certificate"}
         onClose={() => setOpen(null)}
         onClick={(event) => {
@@ -48,14 +50,14 @@ export default function CertificateList() {
           <>
             <div className="mb-3 flex items-baseline justify-between gap-4">
               <p>
-                <span className="font-sans font-semibold">{open.name}</span>
+                <span className="font-semibold">{open.name}</span>
                 <span className="text-muted">
                   {" "}
                   · {open.issuer} · {open.year}
                 </span>
               </p>
               <form method="dialog">
-                <button className="label hover:text-accent">close · esc</button>
+                <button className="label hover:text-accent">Close · Esc</button>
               </form>
             </div>
             <Image
@@ -63,8 +65,8 @@ export default function CertificateList() {
               alt={`${open.name} certificate from ${open.issuer}`}
               width={open.width}
               height={open.height}
-              sizes="(max-width: 900px) 100vw, 54rem"
-              className="mx-auto h-auto max-h-[78dvh] w-auto max-w-full rounded-[2px]"
+              sizes="(max-width: 900px) 92vw, 54rem"
+              className="mx-auto h-auto max-h-[78dvh] w-auto max-w-full rounded"
             />
           </>
         )}

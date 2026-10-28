@@ -1,7 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import { profile } from "@/content/cv";
+import { profile } from "@/content/site";
 
 const format = new Intl.DateTimeFormat("en-GB", {
   hour: "2-digit",

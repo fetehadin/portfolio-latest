@@ -11,12 +11,12 @@ export default function ThemeToggle() {
     <button
       type="button"
       onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-      aria-label="Toggle theme"
-      title="Toggle theme (t)"
-      className="no-print icon-link inline-flex size-8 items-center justify-center rounded-md text-muted transition-colors hover:bg-accent-soft hover:text-accent"
+      aria-label="Switch between light and dark theme"
+      title="Switch theme (t)"
+      className="no-print inline-flex size-10 items-center justify-center rounded-md text-muted transition-colors hover:bg-accent-soft hover:text-accent"
     >
-      <Moon className="size-3.5 dark:hidden" aria-hidden="true" />
-      <Sun className="hidden size-3.5 dark:block" aria-hidden="true" />
+      <Moon className="size-4 dark:hidden" aria-hidden="true" />
+      <Sun className="hidden size-4 dark:block" aria-hidden="true" />
     </button>
   );
 }

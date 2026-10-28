@@ -1,141 +1,203 @@
-import { Fragment } from "react";
 import { ArrowUpRight } from "lucide-react";
-import { currentMonth, education, profile, socials, stack, work } from "@/content/cv";
-import SheetHeader from "@/components/SheetHeader";
-import SheetFooter from "@/components/SheetFooter";
-import Section, { SubRow } from "@/components/Section";
-import WorkTimeline from "@/components/WorkTimeline";
-import ProjectCards from "@/components/ProjectCards";
+import {
+  answeredFaqs,
+  communication,
+  currentMonth,
+  education,
+  experience,
+  githubRepos,
+  moreProjects,
+  practice,
+  process,
+  profile,
+  projects,
+  skills,
+  socials,
+  testimonials,
+} from "@/content/site";
+import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
+import Hero from "@/components/Hero";
+import Section from "@/components/Section";
+import ProjectCard from "@/components/ProjectCard";
+import ExperienceTimeline from "@/components/ExperienceTimeline";
 import CertificateList from "@/components/CertificateList";
+import CopyEmail from "@/components/CopyEmail";
 import ContactForm from "@/components/ContactForm";
-import SocialIcon from "@/components/SocialIcon";
+import Testimonials from "@/components/Testimonials";
 
-const telegram = socials.find((social) => social.network === "Telegram");
-const firstYear = work.map((role) => role.from).sort()[0].slice(0, 4);
+// Rebuilt daily so role durations ("4 mos") stay current.
+export const revalidate = 86400;
+
+const telegram = socials.find((social) => social.network === "Telegram")!;
+const linkedin = socials.find((social) => social.network === "LinkedIn")!;
+const firstYear = experience.map((role) => role.from).sort()[0].slice(0, 4);
 
 export default function Home() {
-  // Built statically; durations and "now" refresh on every deploy.
-  const now = currentMonth();
+  const [lead, ...rest] = projects;
 
   return (
-    <div id="top" className="sheet">
-      <SheetHeader />
+    <>
+      <SiteHeader />
 
       <main id="main" tabIndex={-1} className="outline-none">
-        <Section
-          id="about"
-          num="01"
-          title="About"
-          extra={
-            <SubRow label="Looking for">
-              <p className="prose-col">
-                {profile.lookingFor} <a href="#contact">Get in touch</a>.
-              </p>
-            </SubRow>
-          }
-        >
-          <div className="prose-col space-y-3.5 print:space-y-1">
-            <p className="sans text-[0.9375rem] leading-relaxed font-semibold tracking-[-0.005em] print:text-[8pt]">{profile.about.lead}</p>
-            {profile.about.paragraphs.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
-          </div>
-        </Section>
+        <Hero />
 
-        <Section id="work" num="02" title="Work" meta={`${work.length} roles · since ${firstYear}`}>
-          <WorkTimeline now={now} />
-        </Section>
+        <div className="container">
+          <Section id="work" num="01" title="Selected work" meta={`${projects.length} case studies`}>
+            <p className="lead prose text-muted">{profile.intro}</p>
 
-        <Section id="projects" num="03" title="Featured projects">
-          <ProjectCards />
-        </Section>
-
-        <Section id="stack" num="04" title="Stack">
-          <dl className="grid grid-cols-[6.5rem_minmax(0,1fr)] gap-y-2 print:gap-y-0">
-            {stack.map(({ group, items }) => (
-              <div key={group} className="contents">
-                <dt className="label leading-[inherit]">{group}</dt>
-                <dd>
-                  {items.map((item, i) => (
-                    <Fragment key={item}>
-                      <span className="whitespace-nowrap">
-                        {item}
-                        {i < items.length - 1 && " ·"}
-                      </span>{" "}
-                    </Fragment>
-                  ))}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </Section>
-
-        <Section id="education" num="05" title="Education">
-          <ul>
-            {education.map((school) => (
-              <li key={school.name} className="flex items-baseline justify-between gap-x-6 py-0.5">
-                <span className="min-w-0">
-                  <span className="sans font-semibold">{school.name}</span>
-                  <span className="text-muted">
-                    {" "}
-                    · <span className="whitespace-nowrap">{school.degree}</span>
-                  </span>
-                </span>
-                <span className="shrink-0 whitespace-nowrap text-muted">
-                  {school.start} – {school.end}
-                </span>
+            <ul className="mt-10 grid gap-5 md:grid-cols-2 print:mt-4 print:gap-2">
+              <li className="md:col-span-2">
+                <ProjectCard project={lead} wide />
               </li>
-            ))}
-          </ul>
-          <h3 className="label mt-6 mb-1.5 print:mt-2 print:mb-0">Certificates</h3>
-          <CertificateList />
-        </Section>
+              {rest.map((project) => (
+                <li key={project.slug}>
+                  <ProjectCard project={project} />
+                </li>
+              ))}
+            </ul>
 
-        <Section
-          id="contact"
-          num="06"
-          title="Contact"
-          extra={
-            <SubRow label="Elsewhere">
-              <ul className="flex flex-wrap gap-2">
-                {socials.map((social) => (
-                  <li key={social.network}>
-                    <a href={social.href} target="_blank" rel="noopener noreferrer" className="chip">
-                      <SocialIcon network={social.network} className="size-3" />
-                      {social.network}
-                      <ArrowUpRight className="size-3" aria-hidden="true" />
+            <div className="mt-10 print:mt-3">
+              <h3 className="label">More on GitHub</h3>
+              <ul className="print-url mt-3 divide-y divide-rule border-y border-rule">
+                {moreProjects.map((item) => (
+                  <li key={item.href}>
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="plain flex items-baseline justify-between gap-4 py-2.5"
+                    >
+                      <span className="underline decoration-rule underline-offset-[3px]">{item.label}</span>
+                      <span className="label shrink-0">{item.note}</span>
                     </a>
                   </li>
                 ))}
               </ul>
-            </SubRow>
-          }
-        >
-          <p className="prose-col">
-            A role, a project or just a hello — email and Telegram reach me fastest, or leave a note below and it lands in
-            my inbox.
-          </p>
-          <dl className="mt-4 grid grid-cols-[6.5rem_1fr] gap-y-0.5">
-            <dt className="label leading-[inherit]">Email</dt>
-            <dd>
-              <a href={`mailto:${profile.email}`}>{profile.email}</a>
-            </dd>
-            {telegram && (
-              <>
-                <dt className="label leading-[inherit]">Telegram</dt>
-                <dd>
-                  <a href={telegram.href} target="_blank" rel="noopener noreferrer">
-                    {telegram.handle}
-                  </a>
-                </dd>
-              </>
-            )}
-          </dl>
-          <ContactForm />
-        </Section>
+              <a
+                href={githubRepos}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="no-print mt-4 inline-flex items-center gap-1 text-sm"
+              >
+                Everything else on GitHub
+                <ArrowUpRight className="size-3.5" aria-hidden="true" />
+              </a>
+            </div>
+          </Section>
+
+          <Section id="experience" num="02" title="Experience" meta={`${experience.length} roles · since ${firstYear}`}>
+            <ExperienceTimeline now={currentMonth()} />
+          </Section>
+
+          <Section id="process" num="03" title="How I work" screenOnly>
+            <>
+              <ol className="grid gap-x-8 gap-y-8 sm:grid-cols-2">
+                {process.map((step, i) => (
+                  <li key={step.title}>
+                    <p className="num">Step {i + 1}</p>
+                    <h3 className="h3 mt-1">{step.title}</h3>
+                    <p className="mt-2 text-muted">{step.body}</p>
+                  </li>
+                ))}
+              </ol>
+
+              <div className="mt-12 rounded-lg border border-rule bg-surface p-5 sm:p-6">
+                <h3 className="label">Working remotely with me</h3>
+                <dl className="mt-4 grid gap-4 sm:grid-cols-3">
+                  {communication.map((item) => (
+                    <div key={item.title}>
+                      <dt className="font-semibold">{item.title}</dt>
+                      <dd className="mt-1 text-[0.9375rem] text-muted">{item.body}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+
+              {answeredFaqs.length > 0 && (
+                <div className="faq mt-12">
+                  <h3 className="label">Questions recruiters ask</h3>
+                  <div className="mt-2 divide-y divide-rule border-y border-rule">
+                    {answeredFaqs.map((faq) => (
+                      <details key={faq.q}>
+                        <summary>{faq.q}</summary>
+                        <p className="prose pb-4 text-muted">{faq.a}</p>
+                      </details>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </>
+          </Section>
+
+          <Section id="skills" num="04" title="Skills">
+            <dl className="grid gap-y-5 sm:grid-cols-[11rem_minmax(0,1fr)] sm:gap-x-6">
+              {skills.map(({ group, items }) => (
+                <div key={group} className="contents">
+                  <dt className="label pt-0.5">{group}</dt>
+                  <dd className="-mt-4 sm:mt-0">{items.join(", ")}</dd>
+                </div>
+              ))}
+              <div className="contents">
+                <dt className="label pt-0.5">Practice</dt>
+                <dd className="-mt-4 sm:mt-0">{practice.join(", ")}</dd>
+              </div>
+            </dl>
+          </Section>
+
+          <Section id="education" num="05" title="Education & certificates">
+            <ul className="space-y-4 print:space-y-1.5">
+              {education.map((school) => (
+                <li key={school.name} className="flex flex-wrap items-baseline justify-between gap-x-6">
+                  <div className="min-w-0">
+                    <p className="font-semibold">{school.name}</p>
+                    <p className="text-muted">{school.degree}</p>
+                  </div>
+                  <p className="label shrink-0">
+                    {school.start} – {school.end}
+                  </p>
+                </li>
+              ))}
+            </ul>
+            <h3 className="label mt-10 mb-3 print:mt-4 print:mb-1">Certificates</h3>
+            <CertificateList />
+          </Section>
+
+          <Section id="contact" num="06" title="Contact" screenOnly>
+            <p className="lead prose">{profile.contactLine}</p>
+
+            <dl className="mt-8 grid gap-y-3 sm:grid-cols-[8rem_minmax(0,1fr)]">
+              <dt className="label pt-1">Email</dt>
+              <dd>
+                <CopyEmail />
+              </dd>
+              <dt className="label pt-1">Telegram</dt>
+              <dd>
+                <a href={telegram.href} target="_blank" rel="noopener noreferrer">
+                  {telegram.handle}
+                </a>
+              </dd>
+              <dt className="label pt-1">LinkedIn</dt>
+              <dd>
+                <a href={linkedin.href} target="_blank" rel="noopener noreferrer">
+                  {linkedin.handle}
+                </a>
+              </dd>
+            </dl>
+
+            <Testimonials items={testimonials} />
+
+            <div className="no-print mt-12">
+              <h3 className="h3">Or send a message</h3>
+              <p className="mt-1 mb-6 text-muted">It goes straight to my inbox.</p>
+              <ContactForm />
+            </div>
+          </Section>
+        </div>
       </main>
 
-      <SheetFooter />
-    </div>
+      <SiteFooter />
+    </>
   );
 }

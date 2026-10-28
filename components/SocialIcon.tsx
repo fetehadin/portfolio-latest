@@ -1,4 +1,4 @@
-import type { Social } from "@/content/cv";
+import type { Social } from "@/content/site";
 
 // lucide-react no longer ships brand marks, so these are inline (Simple Icons paths).
 const PATHS: Record<Social["network"], string> = {
