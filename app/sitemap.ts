@@ -9,6 +9,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: 0.8,
     })),
-    { url: `${profile.site}/colophon`, changeFrequency: "yearly", priority: 0.3 },
   ];
 }

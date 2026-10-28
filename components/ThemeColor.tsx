@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useTheme } from "next-themes";
 
-const COLORS = { light: "#f4f2ec", dark: "#0f1413" };
+const COLORS = { light: "#f5f8f3", dark: "#1d2320" };
 
 /** Keeps the browser chrome colour in step when the theme is chosen manually. */
 export default function ThemeColor() {

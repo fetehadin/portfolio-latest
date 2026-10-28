@@ -7,7 +7,7 @@ export default function ExperienceTimeline({ now }: { now: string }) {
   const years = [...new Set(experience.map((role) => role.from.slice(0, 4)))];
 
   return (
-    <div className="space-y-2">
+    <div className="timeline">
       {years.map((year) => (
         <div key={year} className="sm:grid sm:grid-cols-[4rem_minmax(0,1fr)] sm:gap-4">
           <p className="timeline-year mb-3 sm:mb-0 sm:pt-0.5">{year}</p>

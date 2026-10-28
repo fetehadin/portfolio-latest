@@ -56,7 +56,6 @@ Rules for the copy: every number must be true, spelling is American, and anythin
 app/
   page.tsx               home page (server component)
   work/[slug]/page.tsx   case studies, one template for all three
-  colophon/              how the site is made
   cv.md/, llms.txt/      plain-text versions generated from content/site.ts
   opengraph-image.tsx    1200×630 social card
   sitemap.ts, robots.ts

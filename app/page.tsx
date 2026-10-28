@@ -1,4 +1,6 @@
+import { Fragment } from "react";
 import { ArrowUpRight } from "lucide-react";
+import { TechIcon } from "@/lib/tech";
 import {
   answeredFaqs,
   communication,
@@ -29,48 +31,52 @@ import Testimonials from "@/components/Testimonials";
 // Rebuilt daily so role durations ("4 mos") stay current.
 export const revalidate = 86400;
 
-const telegram = socials.find((social) => social.network === "Telegram")!;
-const linkedin = socials.find((social) => social.network === "LinkedIn")!;
-const firstYear = experience.map((role) => role.from).sort()[0].slice(0, 4);
+const firstYear = experience
+  .map((role) => role.from)
+  .sort()[0]
+  .slice(0, 4);
 
 export default function Home() {
-  const [lead, ...rest] = projects;
-
   return (
     <>
       <SiteHeader />
 
-      <main id="main" tabIndex={-1} className="outline-none">
-        <Hero />
+      <div className="frame">
+        <div className="hatch page-top" aria-hidden="true" />
+        <main id="main" tabIndex={-1} className="outline-none">
+          <Hero />
 
-        <div className="container">
-          <Section id="work" num="01" title="Selected work" meta={`${projects.length} case studies`}>
-            <p className="lead prose text-muted">{profile.intro}</p>
-
-            <ul className="mt-10 grid gap-5 md:grid-cols-2 print:mt-4 print:gap-2">
-              <li className="md:col-span-2">
-                <ProjectCard project={lead} wide />
-              </li>
-              {rest.map((project) => (
+          <Section
+            id="work"
+            num="01"
+            title="Selected work"
+            meta={`${projects.length} case studies`}
+            intro={<p className="lead prose text-muted">{profile.intro}</p>}
+          >
+            <ul className="grid gap-6 print:gap-2">
+              {projects.map((project, i) => (
                 <li key={project.slug}>
-                  <ProjectCard project={project} />
+                  <ProjectCard project={project} flip={i % 2 === 1} priority={i === 0} />
                 </li>
               ))}
             </ul>
 
-            <div className="mt-10 print:mt-3">
+            <div className="mt-14 lg:ml-[25%] lg:pl-2 print:mt-3 print:ml-0">
               <h3 className="label">More on GitHub</h3>
               <ul className="print-url mt-3 divide-y divide-rule border-y border-rule">
                 {moreProjects.map((item) => (
                   <li key={item.href}>
-                    <a
-                      href={item.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="plain flex items-baseline justify-between gap-4 py-2.5"
-                    >
-                      <span className="underline decoration-rule underline-offset-[3px]">{item.label}</span>
-                      <span className="label shrink-0">{item.note}</span>
+                    <a href={item.href} target="_blank" rel="noopener noreferrer" className="repo-row">
+                      <span className="flex items-center">
+                        <span className="repo-icon" aria-hidden="true">
+                          <TechIcon tech={item.tech} />
+                        </span>
+                        <span className="underline decoration-rule underline-offset-[3px]">{item.label}</span>
+                      </span>
+                      <span className="label inline-flex shrink-0 items-center gap-1.5">
+                        {item.note}
+                        <ArrowUpRight className="repo-arrow no-print size-3.5" aria-hidden="true" />
+                      </span>
                     </a>
                   </li>
                 ))}
@@ -103,7 +109,7 @@ export default function Home() {
                 ))}
               </ol>
 
-              <div className="mt-12 rounded-lg border border-rule bg-surface p-5 sm:p-6">
+              <div className="mt-12 border border-rule bg-surface p-5 shadow-[var(--shadow)] sm:p-6">
                 <h3 className="label">Working remotely with me</h3>
                 <dl className="mt-4 grid gap-4 sm:grid-cols-3">
                   {communication.map((item) => (
@@ -172,18 +178,16 @@ export default function Home() {
               <dd>
                 <CopyEmail />
               </dd>
-              <dt className="label pt-1">Telegram</dt>
-              <dd>
-                <a href={telegram.href} target="_blank" rel="noopener noreferrer">
-                  {telegram.handle}
-                </a>
-              </dd>
-              <dt className="label pt-1">LinkedIn</dt>
-              <dd>
-                <a href={linkedin.href} target="_blank" rel="noopener noreferrer">
-                  {linkedin.handle}
-                </a>
-              </dd>
+              {socials.map((social) => (
+                <Fragment key={social.network}>
+                  <dt className="label pt-1">{social.network}</dt>
+                  <dd>
+                    <a href={social.href} target="_blank" rel="noopener noreferrer">
+                      {social.handle}
+                    </a>
+                  </dd>
+                </Fragment>
+              ))}
             </dl>
 
             <Testimonials items={testimonials} />
@@ -194,10 +198,10 @@ export default function Home() {
               <ContactForm />
             </div>
           </Section>
-        </div>
-      </main>
+        </main>
 
-      <SiteFooter />
+        <SiteFooter />
+      </div>
     </>
   );
 }

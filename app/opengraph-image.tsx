@@ -12,6 +12,12 @@ export default async function OpengraphImage() {
   const photo = await readFile(join(process.cwd(), "public", profile.photo));
   const photoSrc = `data:image/png;base64,${photo.toString("base64")}`;
   const [firstSentence] = profile.positioning.split(/(?<=\.)\s/);
+  // Geist ships as TTF in the geist package; Satori can't read woff2.
+  const fontDir = join(process.cwd(), "node_modules", "geist", "dist", "fonts", "geist-sans");
+  const [regular, semibold] = await Promise.all([
+    readFile(join(fontDir, "Geist-Regular.ttf")),
+    readFile(join(fontDir, "Geist-SemiBold.ttf")),
+  ]);
 
   return new ImageResponse(
     (
@@ -23,8 +29,8 @@ export default async function OpengraphImage() {
           alignItems: "center",
           gap: 64,
           padding: "0 80px",
-          background: "radial-gradient(circle at 85% 50%, rgba(30,120,95,.18), transparent 45%), #F4F2EC",
-          color: "#1B1C19",
+          background: "radial-gradient(circle at 85% 50%, rgba(0,106,97,.16), transparent 45%), #F5F8F3",
+          color: "#1A211E",
         }}
       >
         <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
@@ -34,7 +40,7 @@ export default async function OpengraphImage() {
               alignItems: "center",
               gap: 12,
               fontSize: 24,
-              color: "#0F5A46",
+              color: "#006A61",
             }}
           >
             <div style={{ width: 14, height: 14, borderRadius: 999, background: "#1E9E6A" }} />
@@ -44,7 +50,7 @@ export default async function OpengraphImage() {
             {profile.name}
           </div>
           <div style={{ fontSize: 34, marginTop: 28, lineHeight: 1.35 }}>{firstSentence}</div>
-          <div style={{ fontSize: 24, marginTop: 36, color: "#66645C" }}>
+          <div style={{ fontSize: 24, marginTop: 36, color: "#56605C" }}>
             {`${profile.role} · ${profile.city} · ${profile.utc} · ${profile.domain}`}
           </div>
         </div>
@@ -53,10 +59,16 @@ export default async function OpengraphImage() {
           width={300}
           height={375}
           alt=""
-          style={{ borderRadius: 6, border: "2px solid #DDD9CD", objectFit: "cover" }}
+          style={{ borderRadius: 6, border: "2px solid #DADDDA", objectFit: "cover" }}
         />
       </div>
     ),
-    size,
+    {
+      ...size,
+      fonts: [
+        { name: "Geist", data: regular, weight: 400, style: "normal" },
+        { name: "Geist", data: semibold, weight: 600, style: "normal" },
+      ],
+    },
   );
 }

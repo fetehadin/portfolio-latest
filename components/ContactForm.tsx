@@ -56,23 +56,23 @@ export default function ContactForm() {
     if (status !== "idle" && status !== "sending") setStatus("idle");
   }
 
-  const describedBy = (field: keyof ContactErrors) => (errors[field] ? `${field}-error` : undefined);
+  const describedBy = (field: keyof ContactErrors) => (errors[field] ? `cf-${field}-error` : undefined);
 
   return (
     <form onSubmit={handleSubmit} onChange={handleChange} noValidate className="grid max-w-xl gap-5">
       <div className="grid gap-1.5">
-        <label htmlFor="name" className="text-sm font-semibold">
+        <label htmlFor="cf-name" className="text-sm font-semibold">
           Name <span className="font-normal text-muted">(optional)</span>
         </label>
-        <input id="name" name="name" type="text" autoComplete="name" maxLength={100} className="field" />
+        <input id="cf-name" name="name" type="text" autoComplete="name" maxLength={100} className="field" />
       </div>
 
       <div className="grid gap-1.5">
-        <label htmlFor="contact" className="text-sm font-semibold">
+        <label htmlFor="cf-contact" className="text-sm font-semibold">
           Your email or Telegram handle
         </label>
         <input
-          id="contact"
+          id="cf-contact"
           name="contact"
           type="text"
           autoComplete="email"
@@ -84,18 +84,18 @@ export default function ContactForm() {
           className="field"
         />
         {errors.contact && (
-          <p id="contact-error" className="text-sm text-danger">
+          <p id="cf-contact-error" className="text-sm text-danger">
             {errors.contact}
           </p>
         )}
       </div>
 
       <div className="grid gap-1.5">
-        <label htmlFor="message" className="text-sm font-semibold">
+        <label htmlFor="cf-message" className="text-sm font-semibold">
           Message
         </label>
         <textarea
-          id="message"
+          id="cf-message"
           name="message"
           rows={5}
           required
@@ -105,7 +105,7 @@ export default function ContactForm() {
           className="field resize-y"
         />
         {errors.message && (
-          <p id="message-error" className="text-sm text-danger">
+          <p id="cf-message-error" className="text-sm text-danger">
             {errors.message}
           </p>
         )}
@@ -113,8 +113,8 @@ export default function ContactForm() {
 
       {/* Honeypot: hidden from people, filled in by bots. */}
       <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
-        <label htmlFor="company">Company</label>
-        <input id="company" name="company" type="text" tabIndex={-1} autoComplete="off" />
+        <label htmlFor="cf-company">Company</label>
+        <input id="cf-company" name="company" type="text" tabIndex={-1} autoComplete="off" />
       </div>
 
       <div className="flex flex-wrap items-center gap-4">

@@ -1,36 +1,38 @@
+import Image from "next/image";
 import Link from "next/link";
-import { nav, profile } from "@/content/site";
+import { Send } from "lucide-react";
+import { profile } from "@/content/site";
 import ThemeToggle from "@/components/ThemeToggle";
+import AccentSwatch from "@/components/AccentSwatch";
+import { HeaderNav, MobileMenu } from "@/components/HeaderNav";
 
-/** Slim sticky header. On case-study pages the section links point back to the home page. */
+/** A framed bar that floats over the page. On case-study pages the section links point back home. */
 export default function SiteHeader({ home = true }: { home?: boolean }) {
   const base = home ? "" : "/";
 
   return (
     <header className="site-header">
-      <div className="container flex h-16 items-center justify-between gap-4">
-        <Link href="/" className="plain text-[0.9375rem] font-semibold tracking-[-0.01em]">
-          {profile.name}
+      <div className="header-bar">
+        <Link href="/" className="plain flex min-w-0 items-center gap-2.5">
+          <Image src={profile.photo} alt="" width={32} height={32} sizes="32px" className="size-8 shrink-0 border border-rule object-cover" />
+          <span className="truncate text-[0.9375rem] font-semibold tracking-[-0.01em]">{profile.name}</span>
         </Link>
 
-        <nav aria-label="Sections" className="hidden lg:block">
-          <ol className="flex items-center gap-5">
-            {nav.map((item) => (
-              <li key={item.id}>
-                <a href={`${base}#${item.id}`} className="nav-link">
-                  <span className="num mr-1 text-[0.6875rem]">0{item.key}</span>
-                  {item.label}
-                </a>
-              </li>
-            ))}
-          </ol>
-        </nav>
+        <HeaderNav base={base} />
 
-        <div className="flex items-center gap-1">
-          <ThemeToggle />
-          <a href={`${base}#contact`} className="btn btn-primary min-h-9 px-3.5 text-sm">
-            Get in touch
-          </a>
+        <div className="flex shrink-0 items-center gap-2">
+          <div className="btn-group">
+            <ThemeToggle />
+            <AccentSwatch />
+          </div>
+          {/* Wrapped: .btn sets display, which would override the hidden utility. */}
+          <div className="hidden sm:block">
+            <a href={`${base}#contact`} className="btn btn-primary btn-sm">
+              <Send className="size-4" aria-hidden="true" />
+              Contact me
+            </a>
+          </div>
+          <MobileMenu base={base} />
         </div>
       </div>
     </header>

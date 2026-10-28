@@ -35,6 +35,12 @@ export type ArchNode = { label: string; detail: string };
 
 export type Decision = { chose: string; over: string; because: string };
 
+/** Keys into the icon map in lib/tech.tsx. */
+export type Tech =
+  | "java" | "npm" | "node" | "maven"
+  | "react" | "expo" | "typescript" | "tanstack" | "express" | "prisma" | "postgres" | "docker"
+  | "python" | "django" | "javascript";
+
 export type Project = {
   slug: string;
   name: string;
@@ -44,6 +50,8 @@ export type Project = {
   badge: string;
   /** Max four on the card; the case study shows the full stack. */
   chips: string[];
+  /** Logos shown on hover over the project. */
+  tech: Tech[];
   stack: string[];
   year: string;
   role: string;
@@ -87,7 +95,7 @@ export const profile = {
   role: "Full-Stack Engineer",
   /** The hero's positioning line. Options considered are in docs/redesign-audit.md. */
   positioning:
-    "I build backend-heavy web and mobile products, and the automation around them. I trained as a civil engineer, so I design software like infrastructure: planned for load, built to last.",
+    "Full-stack software engineer building web apps, mobile apps, and backend systems that solve real-world problems. From database to deployment, I ship software that's fast, reliable, and built to scale.",
   intro:
     "Three years into software, I've published a static-analysis tool on npm, built the app a wholesale business runs its stock and credit on, and led a team at INSA's Summer Tech Camp.",
   availability: "Available for remote & freelance work",
@@ -196,6 +204,7 @@ export const projects: Project[] = [
     outcome: "Finds copy-pasted business logic in Java projects, even after variables are renamed.",
     badge: "Published on npm",
     chips: ["Java", "Static analysis", "CLI", "Desktop app"],
+    tech: ["java", "maven", "node", "npm"],
     stack: ["Java 17", "JavaParser", "Weighted Levenshtein", "Swing + FlatLaf", "Javalin", "Maven", "Node.js CLI wrapper"],
     year: "2026",
     role: "Lead developer (35 of the project's 40 commits)",
@@ -270,6 +279,7 @@ export const projects: Project[] = [
     outcome: "The app a wholesale business uses to run its stock, sales reps' credit and payment approvals.",
     badge: "Used by a real business",
     chips: ["React Native", "Node.js", "PostgreSQL", "Solo build"],
+    tech: ["react", "expo", "typescript", "tanstack", "node", "express", "prisma", "postgres", "docker"],
     stack: ["React Native", "Expo Router", "TanStack Query", "Zustand", "TypeScript", "Node.js", "Express 5", "Prisma", "PostgreSQL", "Zod", "Docker Compose", "Caddy", "EAS Update"],
     year: "2026",
     role: "Sole developer: requirements, API, mobile app and deployment",
@@ -286,6 +296,9 @@ export const projects: Project[] = [
       { src: "/projects/tajstore-2.jpg", width: 576, height: 1280, alt: "Approvals desk: approve or reject a sales rep's bank-transfer receipt" },
       { src: "/projects/tajstore-3.jpg", width: 606, height: 1280, alt: "Suppliers: delivery batches with FIFO cost, refunds and payments" },
       { src: "/projects/tajstore-4.jpg", width: 576, height: 1280, alt: "Store inventory with cost, price and stock per product" },
+      { src: "/projects/tajstore-7.jpg", width: 606, height: 1280, alt: "Sign-in: username and 6-digit PIN, or biometrics" },
+      { src: "/projects/tajstore-6.jpg", width: 576, height: 1280, alt: "Operational summary: net balance and the core modules" },
+      { src: "/projects/tajstore-5.jpg", width: 603, height: 1280, alt: "Admin menu: profile and security, notes and messages" },
     ],
     tldr:
       "A mobile app and API for a wholesale distributor. Sales reps take stock on credit and pay it back with bank-transfer receipts; admins approve payments and track what every rep and supplier owes.",
@@ -345,6 +358,7 @@ export const projects: Project[] = [
     outcome: "A learning hub where students across Ethiopia find resources and each other.",
     badge: "Team lead · INSA Tech Camp",
     chips: ["Django", "PostgreSQL", "REST API", "Team lead"],
+    tech: ["python", "django", "postgres", "javascript"],
     stack: ["Python", "Django", "Django REST Framework", "PostgreSQL", "JavaScript"],
     year: "2025",
     role: "Team lead and backend architect",
@@ -398,11 +412,11 @@ export const projects: Project[] = [
   },
 ];
 
-export const moreProjects: (Link & { note: string })[] = [
-  { label: "CV Formatter", note: "JavaScript", href: "https://github.com/fetehadin/CV-Formatter" },
-  { label: "Schedule Tracker", note: "JavaScript", href: "https://github.com/fetehadin/scheduleTracker" },
-  { label: "Event Booking System", note: "TypeScript", href: "https://github.com/fetehadin/Event-Booking-System" },
-  { label: "BookWise", note: "JavaScript", href: "https://github.com/fetehadin/BookWise_frontend" },
+export const moreProjects: (Link & { note: string; tech: Tech })[] = [
+  { label: "CV Formatter", note: "JavaScript", tech: "javascript", href: "https://github.com/fetehadin/CV-Formatter" },
+  { label: "Schedule Tracker", note: "JavaScript", tech: "javascript", href: "https://github.com/fetehadin/scheduleTracker" },
+  { label: "Event Booking System", note: "TypeScript", tech: "typescript", href: "https://github.com/fetehadin/Event-Booking-System" },
+  { label: "BookWise", note: "JavaScript", tech: "javascript", href: "https://github.com/fetehadin/BookWise_frontend" },
 ];
 
 export const githubRepos = "https://github.com/fetehadin?tab=repositories";
@@ -438,7 +452,7 @@ export const education: School[] = [
   { name: "HiLCoE School of Computer Science & Technology", degree: "B.Sc. Software Engineering", start: "2023", end: "Present" },
   // TODO(fetehadin): confirm AAU status/dates — the old site said "2021 – Present".
   { name: "Addis Ababa University", degree: "Civil & Environmental Engineering", start: "2021", end: "Present" },
-  { name: "Hayrenzi Special Secondary School", degree: "High school diploma", start: "2011 E.C.", end: "2014 E.C." },
+  { name: "Hayrenzi Special Secondary School", degree: "High school diploma", start: "2018", end: "2021" },
 ];
 
 export const certificates: Certificate[] = [

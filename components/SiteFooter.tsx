@@ -1,10 +1,10 @@
-import Link from "next/link";
 import { profile, socials } from "@/content/site";
 import Shortcuts from "@/components/Shortcuts";
 
 export default function SiteFooter() {
   return (
-    <footer className="no-print border-t border-rule">
+    <footer className="no-print">
+      <div className="hatch" aria-hidden="true" />
       <div className="container flex flex-col gap-4 py-10 text-sm sm:flex-row sm:items-start sm:justify-between">
         <div className="space-y-1">
           <p>
@@ -25,9 +25,6 @@ export default function SiteFooter() {
           </li>
           <li>
             <a href="/llms.txt">llms.txt</a>
-          </li>
-          <li>
-            <Link href="/colophon">Colophon</Link>
           </li>
         </ul>
       </div>
