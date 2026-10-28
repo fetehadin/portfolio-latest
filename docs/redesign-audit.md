@@ -122,23 +122,47 @@ Method: each reference was loaded in headless Chromium at 1440×900 and 390×844
 
 ## 5. Reviews
 
-Both reviews were done against a production build (`next start`), using screenshots at 390, 768, 1280 and 1440px in both themes. Scores are 1–5.
+Both reviews used a production build (`next build && next start`), screenshots at 390, 768, 1280 and 1440px in light and dark, a print-to-PDF of the home page, and Lighthouse (mobile). Scores are 1–5. "First pass" is the build as it stood when the components were finished; "After fixes" is the build on this branch.
 
 ### A. HR / technical-recruiter review
 
+The 6-second scan, desktop and mobile: the status pill, name, positioning line, role, city, time zone and local time are all visible without scrolling. "Get in touch" and "Download CV" end at about 490px on a 900px-tall desktop viewport and 540px on a 390×844 phone.
+
 | Question | First pass | After fixes |
 |---|---|---|
-| Name, role, location/time zone and availability within 6 seconds? | _see below_ | |
-| CV download and contact path above the fold? | | |
-| Claims concrete and believable; no top-layer jargon? | | |
-| No typos, broken links, empty sections or placeholders? | | |
-| Trustworthy and professional enough for a US/EU company? | | |
+| Name, role, location/time zone and availability within 6 seconds? | 4: all present, but the page was rendering in the fallback system font (Arial/Roboto), which looked generic | 5 |
+| CV download and contact path above the fold? | 5 | 5 |
+| Claims concrete and believable; no top-layer jargon? | 4: proof chips and outcomes are plain English; "static analysis" and "AST" stay one click deeper | 4: the remaining gap is outcome metrics, which only Fetehadin can supply (see TODOs) |
+| No typos, broken links, empty sections or placeholders? | 3: every section below "Selected work" came out blank in full-page captures and link previews (scroll-gated reveal), and a TajStore screenshot was squashed | 5: no empty sections, no "coming soon"; testimonials and the unanswered FAQ stay hidden until filled |
+| Trustworthy and professional enough for a US/EU company? | 4 | 5 |
 
 ### B. Senior engineer / hiring-manager review
 
 | Question | First pass | After fixes |
 |---|---|---|
-| Case studies show real decisions and trade-offs? | | |
-| Source code and live demos reachable in one click? | | |
-| The site itself is well built (Lighthouse, semantics, console, structure, commits)? | | |
-| Strongest signal / weakest signal | | |
+| Case studies show real decisions and trade-offs? | 4: three "chose X over Y because…" per project, constraints and an architecture diagram; results are thin until metrics are added | 4 |
+| Source code and live demos reachable in one click? | 5: Website / npm / Source on the card and the case study; TajStore is private and says so | 5 |
+| The site itself is well built? | 3: lint and build clean and no console errors, but Accessibility 97 (text contrast failed mid-fade), Best Practices 96 (distorted image), and a print CV that ran to 3 pages | 5: Accessibility, Best Practices and SEO 100 on every page; Performance 96–99 calibrated to this machine's CPU (see note); 2-page print CV; small, logical commits |
+| Strongest signal | Smart Duplicate Detector: a published tool with a real algorithmic trade-off (AST shape vs text, weighted edit distance) and tests | same |
+| Weakest signal | No outcome numbers or third-party quotes yet; AfterQuery bullets are generic | same, until the TODOs are filled |
+
+### Fixes made after the first pass
+
+1. **Wrong font everywhere.** The next/font variables were set on `<body>`, but `--font-sans` is computed on `:root`, so the Geist variable didn't exist there and the whole font stack was invalid. The variables now sit on `<html>`.
+2. **Blank sections in captures.** The scroll reveal used `animation-fill-mode: both`, which hid every section below the fold until it scrolled in, so full-page screenshots, previews and slow devices saw blanks (the same flaw noted in mikaelen's teardown). The animation now has no fill mode, so it only applies while a section is entering view.
+3. **Contrast failures.** Lighthouse measured sections mid-fade and flagged their text. The reveal is now an 8px raise with no opacity change.
+4. **Squashed phone screenshot.** The TajStore card's flex row stretched a 606px-wide shot to match its 576px neighbors; the row now uses `items-start`.
+5. **3-page print CV.** Card padding and link rows are dropped in print, section headings no longer strand at a page bottom, and lists are tighter: it now fits on 2 A4 pages.
+6. **Broken images after the redirect.** `/projects/:slug` caught `/projects/*.jpg`; the redirect now matches only the three case-study slugs.
+
+### Acceptance gates
+
+| Gate | Result |
+|---|---|
+| `npm run lint` and `npm run build` clean | Pass |
+| No console errors | Pass: 5 pages × 4 widths × 2 themes, no console errors and no failed requests |
+| Lighthouse mobile: Perf ≥ 95, A11y 100, BP 100, SEO 100 | A11y, BP, SEO: 100 on all pages. Performance: 96–99 with CPU throttling calibrated to this machine (Lighthouse benchmark index 428, about 4× slower than a typical machine, so the default 4× slowdown over-penalizes it); /colophon varies 91–97. Confirm with PageSpeed Insights on the Vercel preview. |
+| 390, 768, 1280, 1440 in light and dark: no overflow or overlap | Pass |
+| Every external link returns 200 | Pass, with notes: GitHub repos verified through the GitHub API (github.com timed out from the test machine); npm verified through the registry (the website blocks bots with 403); LinkedIn returns 999 to all bots |
+| Contact form sends via Resend | Validation (400s with field errors) and honeypot verified. A real send needs `RESEND_API_KEY` and `CONTACT_EMAIL` on Vercel; not tested locally. |
+| Print preview produces a clean CV | Pass: 2 A4 pages, black and white, links printed as URLs |
