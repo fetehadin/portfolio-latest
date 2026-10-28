@@ -1,80 +1,9 @@
-import {
-  certificates,
-  education,
-  formatMonth,
-  moreProjects,
-  profile,
-  projects,
-  socials,
-  stack,
-  work,
-} from "@/content/cv";
+import { cvMarkdown } from "@/lib/cv-text";
 
 export const dynamic = "force-static";
 
-/** The CV as Markdown, generated from the same data as the page. */
 export function GET() {
-  const lines = [
-    `# ${profile.name}`,
-    "",
-    `${profile.role}  `,
-    `${profile.city} (${profile.utc})  `,
-    `${profile.email} · ${profile.site}`,
-    "",
-    socials.map((s) => `[${s.network} ${s.handle}](${s.href})`).join(" · "),
-    "",
-    "## About",
-    "",
-    profile.about.lead,
-    "",
-    ...profile.about.paragraphs.flatMap((paragraph) => [paragraph, ""]),
-    `**Looking for:** ${profile.lookingFor}`,
-    "",
-    "## Work",
-    "",
-    ...work.flatMap((r) => [
-      `### ${r.title}, ${r.org}`,
-      "",
-      `${formatMonth(r.from)} – ${formatMonth(r.to)} · ${r.location}`,
-      "",
-      ...(r.bullets.length ? r.bullets.map((b) => `- ${b}`) : [r.oneLiner]),
-      "",
-    ]),
-    "## Featured projects",
-    "",
-    ...projects.flatMap((p) => [
-      `### ${p.name} — ${p.tagline}`,
-      "",
-      [p.year, p.role, p.stack.join(", ")].filter(Boolean).join(" · "),
-      "",
-      p.links.length ? p.links.map((l) => `[${l.label}](${l.href})`).join(" · ") : `_${p.linkNote}_`,
-      "",
-      `**Problem.** ${p.problem}`,
-      "",
-      `**What I built.** ${p.built}`,
-      "",
-      `**Result.** ${p.result}`,
-      "",
-      `Case study: ${profile.site}/projects/${p.slug}`,
-      "",
-    ]),
-    `More: ${moreProjects.map((l) => `[${l.label}](${l.href})`).join(", ")}`,
-    "",
-    "## Stack",
-    "",
-    ...stack.map(({ group, items }) => `- **${group}:** ${items.join(", ")}`),
-    "",
-    "## Education",
-    "",
-    ...education.map((e) => `- **${e.name}**, ${e.degree} — ${e.start} – ${e.end}`),
-    "",
-    "## Certificates",
-    "",
-    ...certificates.map((c) => `- ${c.name} · ${c.issuer} · ${c.year}`),
-    "",
-  ];
-
-  return new Response(lines.join("\n"), {
+  return new Response(cvMarkdown(), {
     headers: { "Content-Type": "text/markdown; charset=utf-8" },
   });
 }
