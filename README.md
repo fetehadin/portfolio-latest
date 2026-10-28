@@ -1,4 +1,4 @@
-# fetehadin.pro.et
+# fetehadin.com
 
 The portfolio of Fetehadin Negash, full-stack engineer. Built with Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4, `next-themes` and Geist, with Resend for the contact form.
 
@@ -18,7 +18,7 @@ npm run build && npm run start   # production build at http://localhost:3000
 
 ### Environment variables
 
-Only the contact form needs them. Put them in `.env.local` locally and in the Vercel project settings for deploys:
+Only the contact form needs them. Put them in `.env.local` locally (or `.dev.vars` for `npm run preview`), and as Worker secrets for deploys (see Deploy):
 
 | Variable | What it is |
 |---|---|
@@ -72,4 +72,11 @@ Keyboard shortcuts: `1`–`6` jump to sections, `t` toggles the theme, `c` copie
 
 ## Deploy
 
-The site deploys to Vercel. Pushing a branch creates a preview deployment; merging into `main` deploys to production at https://fetehadin.pro.et. Set the two environment variables above in the Vercel project first.
+The site runs on Cloudflare Workers, built with [OpenNext](https://opennext.js.org/cloudflare) by Workers Builds on every push to `main` (Worker `portfolio-latest`, config in `wrangler.jsonc`). It serves https://fetehadin.com; www.fetehadin.com redirects there.
+
+- Build command: `npx opennextjs-cloudflare build`
+- Deploy command: `npx opennextjs-cloudflare deploy`
+- `RESEND_API_KEY` and `CONTACT_EMAIL` are set in the Cloudflare dashboard under the Worker's Settings → Variables and Secrets (or with `npx wrangler secret put`).
+- `npm run preview` builds the Worker and runs it locally in workerd. `npm run deploy` builds and deploys by hand.
+
+The old domain, fetehadin.pro.et, stays on Vercel only to permanently redirect every path to fetehadin.com.

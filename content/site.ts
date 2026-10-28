@@ -104,8 +104,8 @@ export const profile = {
   timezone: "Africa/Addis_Ababa",
   utc: "GMT+3",
   email: "fetehadinnegash@gmail.com",
-  site: "https://fetehadin.pro.et",
-  domain: "fetehadin.pro.et",
+  site: "https://fetehadin.com",
+  domain: "fetehadin.com",
   photo: "/fetehadin-gree.png",
   cv: "https://drive.google.com/file/d/1HBvlOeg1si_HJ9zASuvfW6hPb1CppOVx/view?usp=sharing",
   description:
